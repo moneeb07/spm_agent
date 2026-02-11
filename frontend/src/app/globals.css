@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * ═══════════════════════════════════════════════
+ * GLOBAL STYLES — Customize with Tailwind
+ * ═══════════════════════════════════════════════
+ *
+ * Add your global styles, custom CSS variables,
+ * and Tailwind @layer directives here.
+ *
+ * Example:
+ *   @layer base {
+ *     body {
+ *       @apply bg-gray-50 text-gray-900;
+ *     }
+ *   }
+ * ═══════════════════════════════════════════════
+ */
