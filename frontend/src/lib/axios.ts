@@ -25,7 +25,8 @@ const api = axios.create({
 api.interceptors.request.use(
     (config) => {
         // Get the access token from localStorage
-        const tokens = localStorage.getItem("auth_tokens");
+        // const tokens = localStorage.getItem("auth_tokens");
+        const tokens = getAccessTokens();
         if (tokens) {
             const parsed = JSON.parse(tokens);
             config.headers.Authorization = `Bearer ${parsed.access_token}`;
@@ -91,7 +92,8 @@ api.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                const tokens = localStorage.getItem("auth_tokens");
+                // const tokens = localStorage.getItem("auth_tokens");
+                const tokens = getAccessTokens();
                 if (!tokens) {
                     throw new Error("No refresh token available");
                 }
@@ -135,5 +137,15 @@ api.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+// helpers
+export function getAccessTokens() {
+    if (typeof window === "undefined") return null;
+    const tokens = localStorage.getItem("auth_tokens");
+    if (!tokens) return null;
+    return tokens;
+}
+
+
 
 export default api;
