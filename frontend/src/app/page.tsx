@@ -9,7 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 // ────────────────────────────────────────────── 
 // If authenticated → /dashboard
 // If not → /login
-// ──────────────────────────────────────────────
+// ──────────────────────────────────────────────-
 
 export default function HomePage() {
     const { user, loading } = useAuth();
