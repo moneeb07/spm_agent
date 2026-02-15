@@ -156,12 +156,12 @@ api.interceptors.response.use(
             }
         }
         // Log other errors in development
-        if (process.env.NODE_ENV === "development") {
-            console.error(
-                `❌ ${error.config?.method?.toUpperCase()} ${error.config?.url} - ${error.response?.status}:`,
-                error.response?.data?.message || error.message
-            );
-        }
+        // if (process.env.NODE_ENV === "development") {
+        //     console.error(
+        //         `❌ ${error.config?.method?.toUpperCase()} ${error.config?.url} - ${error.response?.status}:`,
+        //         error.response?.data?.message || error.message
+        //     );
+        // }
 
         return Promise.reject(error);
     }
