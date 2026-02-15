@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.middleware.cors import setup_cors
 from app.routers import auth
+from app.routers import projects
 
 # ──────────────────────────────────────────────
 # App Initialization
@@ -9,7 +10,7 @@ from app.routers import auth
 app = FastAPI(
     title="SPM Agent API",
     description="AI Software Product Manager — Backend API",
-    version="0.1.0",
+    version="0.2.0",
     docs_url="/docs",
     redoc_url="/redoc",
 )
@@ -25,6 +26,7 @@ setup_cors(app)
 # ──────────────────────────────────────────────
 
 app.include_router(auth.router)
+app.include_router(projects.router)
 
 # ──────────────────────────────────────────────
 # Health Check

@@ -8,6 +8,7 @@ def setup_cors(app):
     Allows the frontend origin to make requests with credentials.
     """
     settings = get_settings()
+    print("CORS ALLOWED:", settings.FRONTEND_URL)
 
     app.add_middleware(
         CORSMiddleware,

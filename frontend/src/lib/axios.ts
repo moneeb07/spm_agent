@@ -15,7 +15,7 @@ const api = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
-    timeout: 15000, // 15 second timeout
+    timeout: 120000, // 120 second timeout
 });
 
 // ──────────────────────────────────────────────
@@ -31,9 +31,14 @@ api.interceptors.request.use(
             const parsed = JSON.parse(tokens);
             config.headers.Authorization = `Bearer ${parsed.access_token}`;
         }
+        // Log request in development
+        if (process.env.NODE_ENV === "development") {
+            console.log(`🔄 ${config.method?.toUpperCase()} ${config.url}`);
+        }
         return config;
     },
     (error) => {
+        console.error("❌ Request interceptor error:", error);
         return Promise.reject(error);
     }
 );
@@ -60,12 +65,23 @@ const processQueue = (error: unknown, token: string | null = null) => {
 };
 
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        // Log successful responses in development
+        if (process.env.NODE_ENV === "development") {
+            console.log(
+                `✅ ${response.config.method?.toUpperCase()} ${response.config.url} - ${response.status}`
+            );
+        }
+        return response;
+    },
     async (error) => {
         const originalRequest = error.config;
 
         // If 401 and we haven't already retried
         if (error.response?.status === 401 && !originalRequest._retry) {
+            if (originalRequest.url?.includes("/auth/refresh")) {
+                console.log("❌ Refresh token failed - session expired");
+            }
             // Don't retry refresh or login endpoints
             if (
                 originalRequest.url?.includes("/auth/refresh") ||
@@ -119,9 +135,15 @@ api.interceptors.response.use(
                 originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;
 
                 processQueue(null, newTokens.access_token);
+                if (process.env.NODE_ENV === "development") {
+                    console.log("✅ Refresh token successful");
+                }
 
                 return api(originalRequest);
             } catch (refreshError) {
+                if (process.env.NODE_ENV === "development") {
+                    console.log("❌ Token refresh failed:", refreshError);
+                }
                 processQueue(refreshError, null);
 
                 // Refresh failed — clear tokens and redirect to login
@@ -132,6 +154,13 @@ api.interceptors.response.use(
             } finally {
                 isRefreshing = false;
             }
+        }
+        // Log other errors in development
+        if (process.env.NODE_ENV === "development") {
+            console.error(
+                `❌ ${error.config?.method?.toUpperCase()} ${error.config?.url} - ${error.response?.status}:`,
+                error.response?.data?.message || error.message
+            );
         }
 
         return Promise.reject(error);

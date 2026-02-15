@@ -1,15 +1,13 @@
 "use client";
 
 import ProtectedRoute from "@/components/ProtectedRoute";
+import Sidebar from "@/components/Sidebar";
 
 // ──────────────────────────────────────────────
 // Dashboard Layout
 // ──────────────────────────────────────────────
-// All pages under (dashboard)/ are wrapped in ProtectedRoute.
+// All pages under (dashboard)/ are wrapped in ProtectedRoute + Sidebar.
 // If not authenticated, user is redirected to /login.
-//
-// DESIGN NOTE: Add your sidebar, top nav bar, etc. here.
-// This layout wraps ALL authenticated pages.
 // ──────────────────────────────────────────────
 
 /*
@@ -17,23 +15,15 @@ import ProtectedRoute from "@/components/ProtectedRoute";
  * DASHBOARD LAYOUT — Design this with Tailwind CSS
  * ═══════════════════════════════════════════════
  *
- * SUGGESTED ELEMENTS:
- *   1. Sidebar (left) with navigation links:
- *      - Dashboard
- *      - Projects (future)
- *      - Settings (future)
- *      - Logout button
- *
- *   2. Top bar with:
- *      - App name / logo
- *      - User name / avatar (from useAuth().user)
- *      - Notification bell (future)
- *
- *   3. Main content area where {children} renders
+ * STRUCTURE:
+ *   1. Sidebar (left) — the <Sidebar /> component handles nav
+ *   2. Main content area (right) — {children} renders here
  *
  * LAYOUT SUGGESTION:
- *   flex with sidebar on left, content on right.
- *   Sidebar can be collapsible on mobile.
+ *   - Use flex: sidebar on left (fixed width), content fills rest
+ *   - Sidebar: w-64, fixed or sticky, full height
+ *   - Content: flex-1, with padding
+ *   - On mobile: sidebar could be a slide-out drawer (optional)
  * ═══════════════════════════════════════════════
  */
 
@@ -44,21 +34,20 @@ export default function DashboardLayout({
 }) {
     return (
         <ProtectedRoute>
-            <div className="min-h-screen">
+            <div className="min-h-screen flex">
                 {/* 
-          DESIGN YOUR DASHBOARD LAYOUT HERE
-          
-          Suggested structure:
-          - Sidebar navigation (left)
-          - Main content area (right) → {children}
-          - Top bar with user info
-          
-          Use useAuth() to access:
-          - user.full_name
-          - user.email
-          - logout()
+          Sidebar lives here — it has its own nav links and logout.
+          Style it in components/Sidebar.tsx
         */}
-                <main>{children}</main>
+                <Sidebar />
+
+                {/* 
+          Main content area — each page renders here.
+          Add padding, background color, etc. as needed.
+        */}
+                <main className="flex-1">
+                    {children}
+                </main>
             </div>
         </ProtectedRoute>
     );
