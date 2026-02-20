@@ -3,7 +3,7 @@ import httpx
 from fastapi import HTTPException, status
 from app.config import get_settings
 from app.supabase_client import supabase
-
+from datetime import datetime
 
 class LLMService:
     """
@@ -49,7 +49,7 @@ class LLMService:
                                     - Assign estimated start_date and end_date for each module relative to today.
                                     - Assign deadline for each task based on estimated effort.
                                     """
-
+        current_date = datetime.now().strftime("%Y-%m-%d")
         prompt = f"""You are an expert software product manager. Create a detailed project roadmap.
 
                 PROJECT DESCRIPTION:
@@ -93,6 +93,7 @@ class LLMService:
                 - Dates must be realistic and sequential (no overlapping modules unless independent).
                 - estimated_hours should reflect the developer's skill level.
                 - Order modules by dependency (do prerequisites first).
+                - Consider you are giving radmap on this date {current_date}  
                 """
         return prompt
 
