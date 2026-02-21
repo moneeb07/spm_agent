@@ -5,16 +5,18 @@ import { useAuth } from '@/context/AuthContext';
 import { createProject, getUpcomingDeadlines } from '@/lib/projectApi';
 import { CreateProjectRequest, DeadlineItem, PlanningMode } from '@/types/project';
 import { useRouter } from 'next/navigation';
-import { Calendar, Zap, AlertCircle, Check, ChevronRight, Plus } from 'lucide-react';
+import { Calendar, Zap, AlertCircle, ChevronRight, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Label } from '@/components/ui/label';
 
 export default function DashboardPage() {
     const { user } = useAuth();
     const router = useRouter();
+    const displayName = user?.full_name && user.full_name !== 'string' ? user.full_name : 'Developer';
 
     // Project Creation State
     const [showWizard, setShowWizard] = useState(false);
@@ -83,50 +85,45 @@ export default function DashboardPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
-            {/* Decorative blobs */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
-                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div className="min-h-screen text-white">
+            <div className="fixed inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
+                <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl" />
             </div>
 
-            {/* Main Content */}
             <div className="relative z-10">
-                {/* Header Section */}
-                <div className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-6 py-12 md:px-12">
+                <div className="rounded-2xl border border-white/20 bg-white/10 px-6 py-10 shadow-2xl backdrop-blur-xl md:px-12">
                     <div className="max-w-6xl mx-auto">
-                        <h1 className="text-4xl md:text-5xl font-bold mb-2">Welcome back, {user?.full_name || 'Developer'}!</h1>
-                        <p className="text-blue-100 text-lg">Manage your projects and track deadlines with AI-powered planning</p>
+                        <h1 className="mb-2 text-4xl font-bold md:text-5xl">Welcome back, {displayName}!</h1>
+                        <p className="text-lg text-slate-200/80">Manage your projects and track deadlines with AI-powered planning</p>
                     </div>
                 </div>
 
-                {/* Main Container */}
                 <div className="max-w-6xl mx-auto px-6 py-12 md:px-12">
-                    {/* New Project Section */}
                     <div className="mb-12">
                         <div className="flex items-center gap-2 mb-6">
-                            <div className="w-1 h-8 bg-blue-600 rounded"></div>
-                            <h2 className="text-2xl font-bold text-gray-900">Start New Project</h2>
+                            <div className="h-8 w-1 rounded bg-cyan-300" />
+                            <h2 className="text-2xl font-bold text-white">Start New Project</h2>
                         </div>
 
                         {!showWizard ? (
-                            <Card className="border-2 border-blue-200 bg-white p-8 shadow-lg hover:shadow-xl transition-shadow">
+                            <Card className="border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12]">
                                 <div className="space-y-6">
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                        <Label className="mb-3 block text-sm font-semibold text-slate-100">
                                             Project Description
-                                        </label>
+                                        </Label>
                                         <Textarea
                                             value={description}
                                             onChange={(e) => setDescription(e.target.value)}
                                             placeholder="Describe your project idea... What are you building? What problem does it solve?"
-                                            className="w-full h-32 p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 resize-none"
+                                            className="h-32 w-full resize-none border-white/20 bg-white/5 p-4 text-white placeholder:text-slate-300/60 transition-all duration-300 focus-visible:ring-white/50"
                                         />
                                     </div>
                                     <Button
                                         onClick={handleStartProject}
                                         disabled={!description.trim()}
-                                        className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="w-full rounded-xl bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 py-3 font-semibold text-white transition-all duration-300 hover:scale-[1.01] hover:from-indigo-500 hover:to-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
                                     >
                                         <Plus size={20} />
                                         Start Project
@@ -134,13 +131,12 @@ export default function DashboardPage() {
                                 </div>
                             </Card>
                         ) : (
-                            <Card className="border-2 border-blue-200 bg-white p-8 shadow-lg">
+                            <Card className="border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl">
                                 <div className="space-y-6">
-                                    {/* Title */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <Label className="mb-2 block text-sm font-semibold text-slate-100">
                                             Project Title
-                                        </label>
+                                        </Label>
                                         <Input
                                             type="text"
                                             placeholder="Project Title"
@@ -148,48 +144,45 @@ export default function DashboardPage() {
                                             onChange={(e) =>
                                                 setFormData((prev) => ({ ...prev, title: e.target.value }))
                                             }
-                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                            className="w-full border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
                                         />
                                     </div>
 
-                                    {/* Description */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <Label className="mb-2 block text-sm font-semibold text-slate-100">
                                             Description
-                                        </label>
+                                        </Label>
                                         <Textarea
                                             value={formData.description}
                                             onChange={(e) =>
                                                 setFormData((prev) => ({ ...prev, description: e.target.value }))
                                             }
                                             placeholder="Project description"
-                                            className="w-full h-24 p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 resize-none"
+                                            className="h-24 w-full resize-none border-white/20 bg-white/5 p-4 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
                                         />
                                     </div>
 
-                                    {/* Tech Stack */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <Label className="mb-2 block text-sm font-semibold text-slate-100">
                                             Tech Stack
-                                        </label>
+                                        </Label>
                                         <Input
                                             type="text"
                                             placeholder="React, FastAPI, PostgreSQL (comma-separated)"
                                             value={techStackInput}
                                             onChange={(e) => setTechStackInput(e.target.value)}
-                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                            className="w-full border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
                                         />
                                     </div>
 
-                                    {/* Planning Mode */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-4">
+                                        <Label className="mb-4 block text-sm font-semibold text-slate-100">
                                             Planning Mode
-                                        </label>
+                                        </Label>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all" style={{
-                                                borderColor: formData.planning_mode === 'deadline' ? '#2563eb' : '#e5e7eb',
-                                                backgroundColor: formData.planning_mode === 'deadline' ? '#eff6ff' : 'white'
+                                                borderColor: formData.planning_mode === 'deadline' ? 'rgba(103,232,249,0.5)' : 'rgba(255,255,255,0.2)',
+                                                backgroundColor: formData.planning_mode === 'deadline' ? 'rgba(34,211,238,0.12)' : 'rgba(255,255,255,0.05)'
                                             }}>
                                                 <input
                                                     type="radio"
@@ -202,17 +195,17 @@ export default function DashboardPage() {
                                                             planning_mode: 'deadline' as PlanningMode,
                                                         }))
                                                     }
-                                                    className="w-4 h-4 text-blue-600"
+                                                    className="h-4 w-4 accent-cyan-300"
                                                 />
                                                 <div className="ml-3">
-                                                    <div className="font-semibold text-gray-900">Fixed Deadline</div>
-                                                    <div className="text-sm text-gray-500">I have a specific end date</div>
+                                                    <div className="font-semibold text-white">Fixed Deadline</div>
+                                                    <div className="text-sm text-slate-300">I have a specific end date</div>
                                                 </div>
                                             </label>
 
                                             <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all" style={{
-                                                borderColor: formData.planning_mode === 'open' ? '#2563eb' : '#e5e7eb',
-                                                backgroundColor: formData.planning_mode === 'open' ? '#eff6ff' : 'white'
+                                                borderColor: formData.planning_mode === 'open' ? 'rgba(103,232,249,0.5)' : 'rgba(255,255,255,0.2)',
+                                                backgroundColor: formData.planning_mode === 'open' ? 'rgba(34,211,238,0.12)' : 'rgba(255,255,255,0.05)'
                                             }}>
                                                 <input
                                                     type="radio"
@@ -225,22 +218,21 @@ export default function DashboardPage() {
                                                             planning_mode: 'open' as PlanningMode,
                                                         }))
                                                     }
-                                                    className="w-4 h-4 text-blue-600"
+                                                    className="h-4 w-4 accent-cyan-300"
                                                 />
                                                 <div className="ml-3">
-                                                    <div className="font-semibold text-gray-900">Flexible Timeline</div>
-                                                    <div className="text-sm text-gray-500">No fixed deadline</div>
+                                                    <div className="font-semibold text-white">Flexible Timeline</div>
+                                                    <div className="text-sm text-slate-300">No fixed deadline</div>
                                                 </div>
                                             </label>
                                         </div>
                                     </div>
 
-                                    {/* Conditional: Deadline date */}
                                     {formData.planning_mode === 'deadline' && (
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            <Label className="mb-2 block text-sm font-semibold text-slate-100">
                                                 Target Deadline
-                                            </label>
+                                            </Label>
                                             <Input
                                                 type="date"
                                                 value={formData.deadline_date || ''}
@@ -250,16 +242,15 @@ export default function DashboardPage() {
                                                         deadline_date: e.target.value,
                                                     }))
                                                 }
-                                                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                                className="w-full border-white/20 bg-white/5 px-4 py-3 text-white focus-visible:ring-white/50"
                                             />
                                         </div>
                                     )}
 
-                                    {/* Working Hours */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        <Label className="mb-2 block text-sm font-semibold text-slate-100">
                                             Working Hours Per Day
-                                        </label>
+                                        </Label>
                                         <Input
                                             type="number"
                                             min={1}
@@ -272,25 +263,23 @@ export default function DashboardPage() {
                                                 }))
                                             }
                                             placeholder="e.g., 6"
-                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                                            className="w-full border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
                                         />
-                                        <p className="text-sm text-gray-500 mt-2">How many hours per day can you dedicate to this project?</p>
+                                        <p className="mt-2 text-sm text-slate-300/80">How many hours per day can you dedicate to this project?</p>
                                     </div>
 
-                                    {/* Error Message */}
                                     {createError && (
-                                        <Alert className="border-2 border-red-200 bg-red-50">
-                                            <AlertCircle className="h-4 w-4 text-red-600" />
-                                            <AlertDescription className="text-red-800">{createError}</AlertDescription>
+                                        <Alert className="border-red-300/40 bg-red-500/10 text-red-50">
+                                            <AlertCircle className="h-4 w-4 text-red-200" />
+                                            <AlertDescription className="text-red-100">{createError}</AlertDescription>
                                         </Alert>
                                     )}
 
-                                    {/* Action Buttons */}
                                     <div className="flex gap-4 pt-4">
                                         <Button
                                             onClick={handleCreateProject}
                                             disabled={isCreating}
-                                            className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="flex-1 rounded-xl bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 py-3 font-semibold text-white transition-all duration-300 hover:scale-[1.01] hover:from-indigo-500 hover:to-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
                                         >
                                             {isCreating ? (
                                                 <>
@@ -309,7 +298,8 @@ export default function DashboardPage() {
                                                 setShowWizard(false);
                                                 setCreateError('');
                                             }}
-                                            className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 rounded-lg transition-all"
+                                            variant="outline"
+                                            className="flex-1 rounded-xl border-white/30 bg-white/5 py-3 font-semibold text-white transition-all duration-300 hover:border-white/50 hover:bg-white/10"
                                         >
                                             Cancel
                                         </Button>
@@ -319,57 +309,56 @@ export default function DashboardPage() {
                         )}
                     </div>
 
-                    {/* Upcoming Deadlines Section */}
                     <div>
                         <div className="flex items-center gap-2 mb-6">
-                            <div className="w-1 h-8 bg-blue-600 rounded"></div>
-                            <h2 className="text-2xl font-bold text-gray-900">Upcoming Deadlines</h2>
+                            <div className="h-8 w-1 rounded bg-cyan-300" />
+                            <h2 className="text-2xl font-bold text-white">Upcoming Deadlines</h2>
                         </div>
 
                         {deadlinesLoading ? (
                             <div className="flex items-center justify-center py-12">
-                                <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                                <div className="h-8 w-8 animate-spin rounded-full border-4 border-white/20 border-t-cyan-300" />
                             </div>
                         ) : deadlines.length === 0 ? (
-                            <Card className="border-2 border-dashed border-blue-300 bg-blue-50 p-12 text-center">
-                                <Calendar className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-                                <p className="text-gray-700 font-medium">No upcoming deadlines</p>
-                                <p className="text-gray-500 text-sm mt-1">Start a project above to begin planning!</p>
+                            <Card className="border border-dashed border-white/30 bg-white/5 p-12 text-center backdrop-blur-xl">
+                                <Calendar className="mx-auto mb-4 h-12 w-12 text-cyan-200" />
+                                <p className="font-medium text-slate-100">No upcoming deadlines</p>
+                                <p className="mt-1 text-sm text-slate-300/80">Start a project above to begin planning!</p>
                             </Card>
                         ) : (
                             <div className="space-y-3">
                                 {deadlines.map((d) => (
                                     <Card
                                         key={d.task_id}
-                                        className="border-2 border-blue-200 bg-white p-6 hover:shadow-lg transition-shadow cursor-pointer group"
+                                        className="group cursor-pointer border border-white/20 bg-white/10 p-6 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14]"
                                     >
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors truncate">
+                                                <h3 className="truncate font-semibold text-white transition-colors group-hover:text-cyan-100">
                                                     {d.project_title}
                                                 </h3>
-                                                <p className="text-gray-600 text-sm mt-1 truncate">{d.task_title}</p>
+                                                <p className="mt-1 truncate text-sm text-slate-300">{d.task_title}</p>
                                             </div>
                                             <div className="flex items-center gap-3 flex-shrink-0">
                                                 <div className="text-right">
-                                                    <div className="flex items-center gap-1 text-gray-700 font-medium text-sm">
-                                                        <Calendar size={16} className="text-blue-600" />
+                                                    <div className="flex items-center gap-1 text-sm font-medium text-slate-200">
+                                                        <Calendar size={16} className="text-cyan-200" />
                                                         {d.deadline}
                                                     </div>
                                                     <div className="mt-2">
                                                         <span
                                                             className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${d.status === 'completed'
-                                                                ? 'bg-green-100 text-green-700'
+                                                                ? 'bg-emerald-500/20 text-emerald-200'
                                                                 : d.status === 'in-progress'
-                                                                    ? 'bg-blue-100 text-blue-700'
-                                                                    : 'bg-yellow-100 text-yellow-700'
+                                                                    ? 'bg-cyan-500/20 text-cyan-200'
+                                                                    : 'bg-amber-500/20 text-amber-200'
                                                                 }`}
                                                         >
                                                             {d.status}
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <ChevronRight className="text-gray-400 group-hover:text-blue-600 transition-colors" size={20} />
+                                                <ChevronRight className="text-slate-400 transition-colors group-hover:text-cyan-200" size={20} />
                                             </div>
                                         </div>
                                     </Card>

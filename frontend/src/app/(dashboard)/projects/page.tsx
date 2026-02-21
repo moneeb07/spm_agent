@@ -14,6 +14,8 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Calendar, Trash2, ArrowRight, Zap, Clock, Flag } from 'lucide-react';
 
 export default function ProjectsPage() {
@@ -47,39 +49,39 @@ export default function ProjectsPage() {
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'completed':
-                return 'bg-green-100 text-green-800 border-green-200';
+                return 'bg-emerald-500/20 text-emerald-200 border-emerald-300/40';
             case 'active':
-                return 'bg-blue-100 text-blue-800 border-blue-200';
+                return 'bg-cyan-500/20 text-cyan-200 border-cyan-300/40';
             case 'planning':
-                return 'bg-purple-100 text-purple-800 border-purple-200';
+                return 'bg-violet-500/20 text-violet-200 border-violet-300/40';
             case 'archived':
-                return 'bg-slate-100 text-slate-800 border-slate-200';
+                return 'bg-slate-500/20 text-slate-200 border-slate-300/40';
             default:
-                return 'bg-slate-100 text-slate-800 border-slate-200';
+                return 'bg-slate-500/20 text-slate-200 border-slate-300/40';
         }
     };
 
     const getModeColor = (mode: string) => {
         return mode === 'deadline'
-            ? 'border-orange-300 bg-orange-50'
-            : 'border-cyan-300 bg-cyan-50';
+            ? 'border-amber-300/40 bg-amber-500/20 text-amber-200'
+            : 'border-cyan-300/40 bg-cyan-500/20 text-cyan-200';
     };
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-50">
+            <div className="min-h-screen text-white">
                 <div className="max-w-6xl mx-auto px-4 py-12">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-2">My Projects</h1>
-                    <p className="text-slate-600 mb-8">Loading your projects...</p>
+                    <h1 className="mb-2 text-4xl font-bold text-white">My Projects</h1>
+                    <p className="mb-8 text-slate-300">Loading your projects...</p>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[1, 2, 3].map((i) => (
                             <div
                                 key={i}
-                                className="bg-white rounded-lg p-6 shadow-sm animate-pulse"
+                                className="animate-pulse rounded-xl border border-white/20 bg-white/10 p-6"
                             >
-                                <div className="h-6 bg-slate-200 rounded mb-3 w-3/4" />
-                                <div className="h-4 bg-slate-200 rounded mb-4 w-full" />
-                                <div className="h-4 bg-slate-200 rounded w-1/2" />
+                                <div className="mb-3 h-6 w-3/4 rounded bg-white/20" />
+                                <div className="mb-4 h-4 w-full rounded bg-white/20" />
+                                <div className="h-4 w-1/2 rounded bg-white/20" />
                             </div>
                         ))}
                     </div>
@@ -89,45 +91,39 @@ export default function ProjectsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-50">
+        <div className="min-h-screen text-white">
             <div className="max-w-6xl mx-auto px-4 py-12">
-                {/* Header */}
                 <div className="mb-12">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-2">My Projects</h1>
-                    <p className="text-slate-600 text-lg">
+                    <h1 className="mb-2 text-4xl font-bold text-white">My Projects</h1>
+                    <p className="text-lg text-slate-300">
                         Manage and track all your software development projects
                     </p>
                 </div>
 
-                {/* Error State */}
                 {error && (
-                    <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg">
-                        <p className="text-red-800 font-medium">
-                            Error: {error}
-                        </p>
-                    </div>
+                    <Alert className="mb-8 border-red-300/40 bg-red-500/10 text-red-50">
+                        <AlertDescription className="font-medium text-red-100">Error: {error}</AlertDescription>
+                    </Alert>
                 )}
 
-                {/* Empty State */}
                 {!loading && projects.length === 0 && (
-                    <div className="text-center py-16">
-                        <div className="mb-4 inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100">
-                            <Flag className="w-8 h-8 text-blue-600" />
+                    <Card className="py-16 text-center border border-dashed border-white/30 bg-white/5 backdrop-blur-xl">
+                        <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20">
+                            <Flag className="h-8 w-8 text-cyan-200" />
                         </div>
-                        <h3 className="text-2xl font-bold text-slate-900 mb-2">No projects yet</h3>
-                        <p className="text-slate-600 mb-6">
+                        <h3 className="mb-2 text-2xl font-bold text-white">No projects yet</h3>
+                        <p className="mb-6 text-slate-300">
                             Start creating projects to manage your development workflow
                         </p>
                         <Link href="/dashboard">
-                            <Button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white">
+                            <Button className="bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 text-white hover:from-indigo-500 hover:to-cyan-400">
                                 <Zap className="w-4 h-4 mr-2" />
                                 Go to Dashboard
                             </Button>
                         </Link>
-                    </div>
+                    </Card>
                 )}
 
-                {/* Projects Grid */}
                 {projects.length > 0 && (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {projects.map((project) => {
@@ -136,23 +132,19 @@ export default function ProjectsPage() {
 
                             return (
                                 <Link href={`/projects/${project.id}`} key={project.id}>
-                                    <div className="group h-full bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-slate-100 hover:border-blue-300">
-                                        {/* Card Header */}
-                                        <div className="h-1 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:h-2 transition-all" />
+                                    <Card className="group h-full overflow-hidden rounded-xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14]">
+                                        <div className="h-1 bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 transition-all group-hover:h-2" />
 
                                         <div className="p-6">
-                                            {/* Title */}
-                                            <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                                            <h3 className="mb-2 line-clamp-2 text-xl font-bold text-white transition-colors group-hover:text-cyan-100">
                                                 {project.title}
                                             </h3>
 
-                                            {/* Description */}
-                                            <p className="text-slate-600 text-sm mb-4 line-clamp-3">
+                                            <p className="mb-4 line-clamp-3 text-sm text-slate-300">
                                                 {description}
                                                 {isLongDescription && '...'}
                                             </p>
 
-                                            {/* Badges */}
                                             <div className="flex flex-wrap gap-2 mb-4">
                                                 <span
                                                     className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(
@@ -180,37 +172,35 @@ export default function ProjectsPage() {
                                                 </span>
                                             </div>
 
-                                            {/* Meta Info */}
-                                            <div className="space-y-2 mb-4 pb-4 border-t border-slate-200">
+                                            <div className="mb-4 space-y-2 border-t border-white/20 pb-4 pt-4">
                                                 {project.deadline_date && (
-                                                    <div className="flex items-center gap-2 text-sm text-slate-600">
-                                                        <Calendar className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                                                    <div className="flex items-center gap-2 text-sm text-slate-300">
+                                                        <Calendar className="h-4 w-4 flex-shrink-0 text-cyan-200" />
                                                         <span>
                                                             <strong>Deadline:</strong> {project.deadline_date}
                                                         </span>
                                                     </div>
                                                 )}
-                                                <div className="flex items-center gap-2 text-sm text-slate-600">
-                                                    <Clock className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                                                <div className="flex items-center gap-2 text-sm text-slate-300">
+                                                    <Clock className="h-4 w-4 flex-shrink-0 text-slate-400" />
                                                     <span>Created: {project.created_at}</span>
                                                 </div>
                                             </div>
 
-                                            {/* Action Buttons */}
-                                            <div className="flex items-center gap-2 pt-4 border-t border-slate-200">
-                                                <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-medium hover:from-blue-700 hover:to-cyan-700 transition-all">
+                                            <div className="flex items-center gap-2 border-t border-white/20 pt-4">
+                                                <Button className="flex-1 bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 text-white hover:from-indigo-500 hover:to-cyan-400">
                                                     View Details
                                                     <ArrowRight className="w-4 h-4" />
-                                                </button>
+                                                </Button>
 
                                                 <AlertDialog>
                                                     <AlertDialogTrigger
                                                         asChild
                                                         onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.preventDefault()}
                                                     >
-                                                        <button className="p-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition-colors">
+                                                        <Button variant="outline" size="icon" className="border-red-300/40 bg-red-500/10 text-red-200 hover:bg-red-500/20 hover:text-red-100">
                                                             <Trash2 className="w-4 h-4" />
-                                                        </button>
+                                                        </Button>
                                                     </AlertDialogTrigger>
                                                     <AlertDialogContent>
                                                         <AlertDialogTitle>Delete Project</AlertDialogTitle>
@@ -222,7 +212,7 @@ export default function ProjectsPage() {
                                                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                             <AlertDialogAction
                                                                 onClick={() => handleDelete(project.id)}
-                                                                className="bg-red-600 hover:bg-red-700"
+                                                                className="bg-red-600 text-white hover:bg-red-700"
                                                             >
                                                                 Delete
                                                             </AlertDialogAction>
@@ -231,7 +221,7 @@ export default function ProjectsPage() {
                                                 </AlertDialog>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Card>
                                 </Link>
                             );
                         })}

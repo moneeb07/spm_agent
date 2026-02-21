@@ -17,18 +17,19 @@ export default function Sidebar() {
     const { user, logout } = useAuth();
 
     const isActive = (href: string) => pathname === href;
+    const displayName = user?.full_name && user.full_name !== "string" ? user.full_name : "Developer";
 
     return (
-        <aside className="w-64 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-900 text-white min-h-screen flex flex-col shadow-lg fixed left-0 top-0 z-50">
+        <aside className="fixed left-0 top-0 z-50 flex min-h-screen w-64 flex-col border-r border-white/10 bg-slate-950/95 text-white backdrop-blur-xl">
             {/* Header */}
-            <div className="p-6 border-b border-blue-700">
+            <div className="border-b border-white/10 p-6">
                 <div className="flex items-center gap-3">
-                    <div className="bg-gradient-to-br from-blue-400 to-cyan-400 p-2 rounded-lg">
-                        <Zap className="w-6 h-6 text-blue-900" />
+                    <div className="rounded-lg bg-white/10 p-2 ring-1 ring-white/20">
+                        <Zap className="h-6 w-6 text-cyan-200" />
                     </div>
                     <div>
                         <h1 className="text-xl font-bold text-white">SPM Agent</h1>
-                        <p className="text-xs text-blue-200">AI Product Manager</p>
+                        <p className="text-xs text-slate-300">AI Product Manager</p>
                     </div>
                 </div>
             </div>
@@ -45,14 +46,14 @@ export default function Sidebar() {
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${active
-                                        ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg font-semibold"
-                                        : "text-blue-100 hover:bg-blue-700/50 hover:text-white"
+                                        ? "border border-white/20 bg-white/15 text-white shadow-lg font-semibold"
+                                        : "text-slate-300 hover:bg-white/10 hover:text-white"
                                     }`}
                             >
                                 <IconComponent className="w-5 h-5" />
                                 <span>{item.label}</span>
                                 {active && (
-                                    <div className="ml-auto w-2 h-2 bg-cyan-300 rounded-full"></div>
+                                    <div className="ml-auto h-2 w-2 rounded-full bg-cyan-300"></div>
                                 )}
                             </Link>
                         );
@@ -61,13 +62,13 @@ export default function Sidebar() {
             </nav>
 
             {/* Divider */}
-            <div className="px-4 py-4 border-t border-blue-700">
+            <div className="border-t border-white/10 px-4 py-4">
                 {/* User Info */}
-                <div className="mb-4 p-3 bg-blue-700/30 rounded-lg">
-                    <p className="text-sm font-medium text-white truncate">
-                        {user?.full_name || "Developer"}
+                <div className="mb-4 rounded-lg border border-white/10 bg-white/5 p-3">
+                    <p className="truncate text-sm font-medium text-white">
+                        {displayName}
                     </p>
-                    <p className="text-xs text-blue-200 truncate">
+                    <p className="truncate text-xs text-slate-300">
                         {user?.email || "user@example.com"}
                     </p>
                 </div>
@@ -76,7 +77,7 @@ export default function Sidebar() {
                 <Button
                     onClick={logout}
                     variant="outline"
-                    className="w-full flex items-center gap-2 bg-red-600/20 border-red-500/50 text-red-100 hover:bg-red-600/40 hover:border-red-500 transition-colors"
+                    className="w-full border-white/20 bg-white/5 text-slate-100 transition-colors hover:bg-white/10 hover:text-white"
                 >
                     <LogOut className="w-4 h-4" />
                     <span>Logout</span>
@@ -84,8 +85,8 @@ export default function Sidebar() {
             </div>
 
             {/* Footer Badge */}
-            <div className="px-4 py-3 border-t border-blue-700 text-center">
-                <p className="text-xs text-blue-300">v1.0 • AI Powered</p>
+            <div className="border-t border-white/10 px-4 py-3 text-center">
+                <p className="text-xs text-slate-400">v1.0 • AI Powered</p>
             </div>
         </aside>
     );

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Card } from "@/components/ui/card";
 
 export default function SignupPage() {
     const { signup, loading, error, clearError } = useAuth();
@@ -51,40 +52,50 @@ export default function SignupPage() {
     const displayError = localError || error;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center p-4 py-8">
-            {/* Decorative Elements */}
-            <div className="absolute top-0 left-0 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-            <div className="absolute bottom-0 right-0 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+        <div className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+            <div className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-cyan-400/25 blur-3xl animate-pulse" />
+            <div className="pointer-events-none absolute top-1/3 -right-24 h-[28rem] w-[28rem] rounded-full bg-indigo-500/25 blur-3xl animate-pulse" />
+            <div className="pointer-events-none absolute -bottom-24 left-1/3 h-80 w-80 rounded-full bg-violet-400/20 blur-3xl animate-pulse" />
 
-            {/* Main Card */}
-            <div className="relative z-10 w-full max-w-md">
-                <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-                    {/* Header */}
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-8 text-center">
-                        <div className="flex justify-center mb-4">
-                            <div className="bg-white rounded-xl p-3">
-                                <UserPlus className="w-8 h-8 text-blue-600" />
+            <div className="relative z-10 grid min-h-screen grid-cols-1 lg:grid-cols-2">
+                <section className="hidden lg:flex flex-col justify-between border-r border-white/10 bg-white/[0.03] px-12 py-14 backdrop-blur-sm">
+                    <div>
+                        <div className="inline-flex items-center gap-3 rounded-xl border border-white/20 bg-white/10 px-4 py-2 shadow-2xl">
+                            <div className="rounded-lg bg-white/20 p-2">
+                                <UserPlus className="h-5 w-5 text-cyan-200" />
                             </div>
+                            <span className="text-sm font-medium tracking-wide text-white/90">SPM Agent</span>
                         </div>
-                        <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-                        <p className="text-blue-100">Join us and get started</p>
                     </div>
 
-                    {/* Form Content */}
-                    <div className="px-6 py-8">
-                        {/* Error Alert */}
+                    <div className="max-w-xl space-y-6">
+                        <h1 className="text-5xl font-semibold leading-tight text-white">
+                            Create your account and launch AI workflows in minutes.
+                        </h1>
+                        <p className="text-lg leading-relaxed text-slate-200/80">
+                            Join your workspace, organize projects, and get structured plans with a modern control center built for fast product execution.
+                        </p>
+                    </div>
+
+                    <p className="text-sm text-slate-300/70">© {new Date().getFullYear()} SPM Agent. All rights reserved.</p>
+                </section>
+
+                <section className="flex items-center justify-center px-4 py-10 sm:px-8">
+                    <Card className="w-full max-w-md rounded-2xl border border-white/20 bg-white/10 p-6 shadow-2xl backdrop-blur-xl transition-all duration-300 sm:p-8">
+                        <div className="mb-8 space-y-2">
+                            <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Create account</h2>
+                            <p className="text-sm text-slate-200/80 sm:text-base">Join SPM Agent and start planning smarter.</p>
+                        </div>
+
                         {displayError && (
-                            <Alert className="mb-6 border-red-200 bg-red-50">
-                                <AlertDescription className="text-red-800 font-medium">
-                                    {displayError}
-                                </AlertDescription>
+                            <Alert className="mb-6 border-red-300/40 bg-red-500/10 text-red-50">
+                                <AlertDescription className="font-medium text-red-100">{displayError}</AlertDescription>
                             </Alert>
                         )}
 
-                        <form onSubmit={handleSignup} className="space-y-4">
-                            {/* Full Name Field */}
+                        <form onSubmit={handleSignup} className="space-y-5">
                             <div className="space-y-2">
-                                <Label htmlFor="fullName" className="text-gray-700 font-semibold">
+                                <Label htmlFor="fullName" className="font-medium text-slate-100">
                                     Full Name
                                 </Label>
                                 <Input
@@ -95,13 +106,12 @@ export default function SignupPage() {
                                     required
                                     maxLength={100}
                                     placeholder="John Doe"
-                                    className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-gray-800"
+                                    className="h-11 border-white/20 bg-white/5 text-white placeholder:text-slate-300/60 transition-all duration-300 focus-visible:ring-white/50"
                                 />
                             </div>
 
-                            {/* Email Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="email" className="text-gray-700 font-semibold">
+                                <Label htmlFor="email" className="font-medium text-slate-100">
                                     Email Address
                                 </Label>
                                 <Input
@@ -111,13 +121,12 @@ export default function SignupPage() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     placeholder="you@example.com"
-                                    className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-gray-800"
+                                    className="h-11 border-white/20 bg-white/5 text-white placeholder:text-slate-300/60 transition-all duration-300 focus-visible:ring-white/50"
                                 />
                             </div>
 
-                            {/* Password Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="password" className="text-gray-700 font-semibold">
+                                <Label htmlFor="password" className="font-medium text-slate-100">
                                     Password
                                 </Label>
                                 <div className="relative">
@@ -129,35 +138,35 @@ export default function SignupPage() {
                                         required
                                         minLength={6}
                                         placeholder="••••••••"
-                                        className="h-11 pr-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-gray-800"
+                                        className="h-11 pr-12 border-white/20 bg-white/5 text-white placeholder:text-slate-300/60 transition-all duration-300 focus-visible:ring-white/50"
                                     />
-                                    <button
+                                    <Button
                                         type="button"
+                                        variant="ghost"
+                                        size="icon"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                        className="absolute right-1 top-1/2 h-9 w-9 -translate-y-1/2 rounded-md text-slate-300/70 hover:bg-white/10 hover:text-white"
                                     >
                                         {showPassword ? (
-                                            <EyeOff className="w-5 h-5" />
+                                            <EyeOff className="h-5 w-5" />
                                         ) : (
-                                            <Eye className="w-5 h-5" />
+                                            <Eye className="h-5 w-5" />
                                         )}
-                                    </button>
+                                    </Button>
                                 </div>
-                                {/* Password Strength Indicator */}
                                 <div className="flex items-center gap-2 mt-2">
                                     <div
-                                        className={`h-1.5 flex-1 rounded-full transition-colors ${isPasswordValid ? "bg-green-500" : "bg-gray-300"
+                                        className={`h-1.5 flex-1 rounded-full transition-colors ${isPasswordValid ? "bg-emerald-400" : "bg-slate-600"
                                             }`}
-                                    ></div>
-                                    <span className="text-xs font-medium text-gray-600">
+                                    />
+                                    <span className="text-xs font-medium text-slate-300/80">
                                         Min 6 characters
                                     </span>
                                 </div>
                             </div>
 
-                            {/* Confirm Password Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="confirmPassword" className="text-gray-700 font-semibold">
+                                <Label htmlFor="confirmPassword" className="font-medium text-slate-100">
                                     Confirm Password
                                 </Label>
                                 <div className="relative">
@@ -168,30 +177,31 @@ export default function SignupPage() {
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         required
                                         placeholder="••••••••"
-                                        className="h-11 pr-10 border-gray-300 focus:border-blue-500 focus:ring-blue-500 text-gray-800"
+                                        className="h-11 pr-12 border-white/20 bg-white/5 text-white placeholder:text-slate-300/60 transition-all duration-300 focus-visible:ring-white/50"
                                     />
-                                    <button
+                                    <Button
                                         type="button"
+                                        variant="ghost"
+                                        size="icon"
                                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                        className="absolute right-1 top-1/2 h-9 w-9 -translate-y-1/2 rounded-md text-slate-300/70 hover:bg-white/10 hover:text-white"
                                     >
                                         {showConfirmPassword ? (
-                                            <EyeOff className="w-5 h-5" />
+                                            <EyeOff className="h-5 w-5" />
                                         ) : (
-                                            <Eye className="w-5 h-5" />
+                                            <Eye className="h-5 w-5" />
                                         )}
-                                    </button>
+                                    </Button>
                                 </div>
-                                {/* Password Match Indicator */}
                                 {password.length > 0 && (
                                     <div className="flex items-center gap-2 mt-2">
                                         {isPasswordMatch ? (
-                                            <Check className="w-4 h-4 text-green-500" />
+                                            <Check className="w-4 h-4 text-emerald-400" />
                                         ) : (
-                                            <X className="w-4 h-4 text-red-500" />
+                                            <X className="w-4 h-4 text-rose-400" />
                                         )}
                                         <span
-                                            className={`text-xs font-medium ${isPasswordMatch ? "text-green-600" : "text-red-600"
+                                            className={`text-xs font-medium ${isPasswordMatch ? "text-emerald-300" : "text-rose-300"
                                                 }`}
                                         >
                                             {isPasswordMatch ? "Passwords match" : "Passwords don't match"}
@@ -200,43 +210,42 @@ export default function SignupPage() {
                                 )}
                             </div>
 
-                            {/* Submit Button */}
                             <Button
                                 type="submit"
                                 disabled={loading || !isPasswordMatch}
-                                className="w-full h-11 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed mt-6"
+                                size="lg"
+                                className="mt-2 w-full rounded-xl font-semibold shadow-lg transition-all duration-300 hover:scale-[1.01]"
                             >
                                 {loading ? "Creating account..." : "Create Account"}
                             </Button>
                         </form>
 
-                        {/* Divider */}
                         <div className="my-6 relative">
                             <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-gray-200"></div>
+                                <div className="w-full border-t border-white/20" />
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Already have an account?</span>
+                                <span className="bg-transparent px-3 text-slate-200/70">Already have an account?</span>
                             </div>
                         </div>
 
-                        {/* Login Link */}
-                        <Link
-                            href="/login"
-                            className="block w-full h-11 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center"
+                        <Button
+                            asChild
+                            variant="outline"
+                            size="lg"
+                            className="w-full rounded-xl border-white/30 bg-white/5 font-semibold text-white transition-all duration-300 hover:border-white/50 hover:bg-white/10 hover:text-white"
                         >
-                            Sign In
-                        </Link>
-                    </div>
-                </div>
+                            <Link href="/login">Sign In</Link>
+                        </Button>
 
-                {/* Footer */}
-                <p className="text-center text-white text-sm mt-6">
-                    By creating an account, you agree to our{" "}
-                    <Link href="#" className="underline hover:text-blue-200 transition-colors">
-                        Terms of Service
-                    </Link>
-                </p>
+                        <p className="mt-6 text-center text-xs text-slate-200/70">
+                            By creating an account, you agree to our{" "}
+                            <Link href="#" className="underline underline-offset-2 transition-colors hover:text-white">
+                                Terms of Service
+                            </Link>
+                        </p>
+                    </Card>
+                </section>
             </div>
         </div>
     );

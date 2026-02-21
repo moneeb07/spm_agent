@@ -10,13 +10,15 @@ export default function ProjectsLayout({
 }) {
     return (
         <ProtectedRoute>
-            <div className="flex min-h-screen">
+            <div className="flex min-h-screen bg-slate-950 text-white">
                 {/* Fixed Sidebar */}
                 <Sidebar />
 
                 {/* Main Content Area */}
-                <main className="flex-1 ml-64 bg-gradient-to-br from-blue-50 via-slate-50 to-blue-100 min-h-screen">
-                    <div className="p-8">
+                <main className="relative ml-64 min-h-screen flex-1 overflow-hidden bg-slate-950">
+                    <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-cyan-400/20 blur-3xl" />
+                    <div className="pointer-events-none absolute -bottom-24 left-1/4 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl" />
+                    <div className="relative p-8">
                         {children}
                     </div>
                 </main>
