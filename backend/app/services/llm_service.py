@@ -143,6 +143,7 @@ class LLMService:
             "generationConfig": {
                 "temperature": 0.7,
                 "responseMimeType": "application/json",
+                "maxOutputTokens": 20000,
             },
         }
 

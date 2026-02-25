@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, Home, FolderOpen, User, Zap } from "lucide-react";
+import { LogOut, Home, FolderOpen, User, Zap, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
     { label: "Dashboard", href: "/dashboard", icon: Home },
+    { label: "Create Project", href: "/create-project", icon: PlusCircle },
     { label: "Projects", href: "/projects", icon: FolderOpen },
     { label: "Profile", href: "/profile", icon: User },
 ];
@@ -46,8 +47,8 @@ export default function Sidebar() {
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${active
-                                        ? "border border-white/20 bg-white/15 text-white shadow-lg font-semibold"
-                                        : "text-slate-300 hover:bg-white/10 hover:text-white"
+                                    ? "border border-white/20 bg-white/15 text-white shadow-lg font-semibold"
+                                    : "text-slate-300 hover:bg-white/10 hover:text-white"
                                     }`}
                             >
                                 <IconComponent className="w-5 h-5" />
