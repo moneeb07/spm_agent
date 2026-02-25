@@ -184,6 +184,107 @@ class LLMService:
             )
 
     @staticmethod
+    async def generate_roadmap_stream(
+        description: str,
+        tech_stack: list[str],
+        planning_mode: str,
+        deadline_date: str | None,
+        working_hours_per_day: float,
+        skill_level: str | None,
+        preferred_pace: str | None,
+    ):
+        """
+        Streaming version of generate_roadmap.
+        Yields (event_type, data) tuples:
+          ("status", "message")  — progress messages
+          ("chunk", "text")      — raw LLM text chunks
+          ("done", roadmap_dict) — final parsed roadmap
+          ("error", "message")   — error occurred
+        """
+        settings = get_settings()
+
+        if not settings.GEMINI_API_KEY:
+            yield ("error", "GEMINI_API_KEY is not configured.")
+            return
+
+        yield ("status", "⚡ Building AI prompt...")
+
+        prompt = LLMService._build_prompt(
+            description=description,
+            tech_stack=tech_stack,
+            planning_mode=planning_mode,
+            deadline_date=deadline_date,
+            working_hours_per_day=working_hours_per_day,
+            skill_level=skill_level,
+            preferred_pace=preferred_pace,
+        )
+
+        # Use streamGenerateContent instead of generateContent
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{settings.LLM_MODEL}:streamGenerateContent?alt=sse&key={settings.GEMINI_API_KEY}"
+
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": prompt}
+                    ]
+                }
+            ],
+            "generationConfig": {
+                "temperature": 0.7,
+                "responseMimeType": "application/json",
+                "maxOutputTokens": 20000,
+            },
+        }
+
+        yield ("status", "🧠 Streaming from Gemini API...")
+
+        full_text = ""
+
+        try:
+            async with httpx.AsyncClient(timeout=120.0) as client: # here backend is the client for llms server
+                async with client.stream("POST", url, json=payload) as response: # here response is from llms server
+                    if response.status_code != 200:
+                        error_body = await response.aread()
+                        yield ("error", f"Gemini API error: {response.status_code} — {error_body.decode()}")
+                        return
+
+                    async for line in response.aiter_lines():
+                        # SSE format: lines starting with "data: " contain JSON
+                        if line.startswith("data: "):
+                            json_str = line[6:]  # strip "data: " prefix
+                            try:
+                                chunk_data = json.loads(json_str)
+                                candidates = chunk_data.get("candidates", [])
+                                if candidates:
+                                    parts = candidates[0].get("content", {}).get("parts", [])
+                                    for part in parts:
+                                        text = part.get("text", "")
+                                        if text:
+                                            full_text += text
+                                            yield ("chunk", text) # here we are sending the chunk to the frontend
+                            except json.JSONDecodeError:
+                                continue
+
+        except httpx.TimeoutException:
+            yield ("error", "LLM request timed out. Try again.")
+            return
+        except Exception as e:
+            yield ("error", f"Streaming failed: {str(e)}")
+            return
+
+        # Parse the complete accumulated text
+        yield ("status", "📋 Parsing roadmap...")
+
+        try:
+            roadmap = json.loads(full_text)
+        except json.JSONDecodeError as e:
+            yield ("error", f"LLM returned invalid JSON: {str(e)}")
+            return
+
+        yield ("done", roadmap)
+
+    @staticmethod
     async def save_roadmap_to_db(
         project_id: str,
         roadmap: dict,

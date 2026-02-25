@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { createProject } from '@/lib/projectApi';
+import { useState, useRef } from 'react';
 import { CreateProjectRequest, PlanningMode } from '@/types/project';
 import { useRouter } from 'next/navigation';
 import { Zap, AlertCircle, Plus } from 'lucide-react';
@@ -11,6 +10,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
+import TerminalBlock from '@/components/TerminalBlock';
+
+interface TerminalLine {
+    text: string;
+    type: 'status' | 'chunk' | 'error';
+}
 
 export default function CreateProjectPage() {
     const router = useRouter();
@@ -29,6 +34,11 @@ export default function CreateProjectPage() {
     const [isCreating, setIsCreating] = useState(false);
     const [createError, setCreateError] = useState('');
 
+    // Terminal State
+    const [showTerminal, setShowTerminal] = useState(false);
+    const [terminalLines, setTerminalLines] = useState<TerminalLine[]>([]);
+    const [terminalActive, setTerminalActive] = useState(false);
+
     // Step 1: User writes description and clicks "Start Project"
     const handleStartProject = () => {
         if (!description.trim()) return;
@@ -36,27 +46,107 @@ export default function CreateProjectPage() {
         setShowWizard(true);
     };
 
-    // Step 2: User fills in details and submits
+    // Step 2: User fills in details and submits — uses SSE streaming
     const handleCreateProject = async () => {
         setCreateError('');
         setIsCreating(true);
+        setShowTerminal(true);
+        setTerminalActive(true);
+        setTerminalLines([]);
+
+        const techStack = techStackInput
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean);
+
+        const requestData: CreateProjectRequest = {
+            ...formData,
+            tech_stack: techStack,
+        };
 
         try {
-            const techStack = techStackInput
-                .split(',')
-                .map((s) => s.trim())
-                .filter(Boolean);
+            // Get JWT token from localStorage
+            const tokens = localStorage.getItem('auth_tokens');
+            const parsed = JSON.parse(tokens || '{}');
 
-            const requestData: CreateProjectRequest = {
-                ...formData,
-                tech_stack: techStack,
-            };
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/projects/stream`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${parsed.access_token}`,
+                    },
+                    body: JSON.stringify(requestData),
+                }
+            );
 
-            const project = await createProject(requestData);
-            router.push(`/projects/${project.id}`);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            const reader = response.body?.getReader();
+            if (!reader) throw new Error('No response body');
+
+            const decoder = new TextDecoder();
+            let buffer = '';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+
+                // Process complete SSE messages
+                const lines = buffer.split('\n\n');
+                buffer = lines.pop() || ''; // Keep incomplete message in buffer
+
+                for (const line of lines) {
+                    if (!line.startsWith('data: ')) continue;
+
+                    try {
+                        const event = JSON.parse(line.slice(6));
+
+                        if (event.type === 'status') {
+                            setTerminalLines((prev) => [
+                                ...prev,
+                                { text: event.data, type: 'status' },
+                            ]);
+                        } else if (event.type === 'chunk') {
+                            setTerminalLines((prev) => [
+                                ...prev,
+                                { text: event.data, type: 'chunk' },
+                            ]);
+                        } else if (event.type === 'error') {
+                            setTerminalLines((prev) => [
+                                ...prev,
+                                { text: event.data, type: 'error' },
+                            ]);
+                            setTerminalActive(false);
+                            setIsCreating(false);
+                            setCreateError(event.data);
+                            return;
+                        } else if (event.type === 'done') {
+                            setTerminalActive(false);
+                            // Small delay so user sees the "Done!" message
+                            setTimeout(() => {
+                                router.push(`/projects/${event.data}`);
+                            }, 1500);
+                            return;
+                        }
+                    } catch {
+                        // Skip malformed JSON
+                    }
+                }
+            }
         } catch (err: any) {
-            console.log(err);
-            setCreateError(err.response?.data?.detail || 'Failed to create project. Try again.');
+            console.error(err);
+            setTerminalLines((prev) => [
+                ...prev,
+                { text: err.message || 'Connection failed', type: 'error' },
+            ]);
+            setCreateError(err.message || 'Failed to connect to server.');
+            setTerminalActive(false);
         } finally {
             setIsCreating(false);
         }
@@ -276,6 +366,7 @@ export default function CreateProjectPage() {
                                             setCreateError('');
                                         }}
                                         variant="outline"
+                                        disabled={isCreating}
                                         className="flex-1 rounded-xl border-white/30 bg-white/5 py-3 font-semibold text-white transition-all duration-300 hover:border-white/50 hover:bg-white/10"
                                     >
                                         Cancel
@@ -283,6 +374,17 @@ export default function CreateProjectPage() {
                                 </div>
                             </div>
                         </Card>
+                    )}
+
+                    {/* Terminal Block — shows during/after generation */}
+                    {showTerminal && (
+                        <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <div className="flex items-center gap-2 mb-4">
+                                <div className="h-8 w-1 rounded bg-emerald-400" />
+                                <h2 className="text-2xl font-bold text-white">AI Generation Output</h2>
+                            </div>
+                            <TerminalBlock lines={terminalLines} isActive={terminalActive} />
+                        </div>
                     )}
                 </div>
             </div>
