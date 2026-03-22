@@ -33,6 +33,7 @@ class ForgotPasswordRequest(BaseModel):
 class ResetPasswordRequest(BaseModel):
     """Request body to reset password with a new one."""
     access_token: str
+    refresh_token: str
     new_password: str = Field(..., min_length=6)
  
 

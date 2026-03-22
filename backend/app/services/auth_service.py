@@ -154,25 +154,28 @@ class AuthService:
     def forgot_password(data: ForgotPasswordRequest) -> dict:
         """Send a password reset email via Supabase."""
         try:
-            supabase.auth.reset_password_email(data.email)
+            supabase.auth.reset_password_for_email(
+                data.email,
+                {
+                    "redirect_to": "http://localhost:3000/reset-password"
+                }
+            )
             return {
                 "message": "If an account exists with that email, a reset link has been sent.",
                 "success": True,
             }
-        except AuthApiError as e:
-            # Don't reveal whether the email exists
+        except AuthApiError:
             return {
                 "message": "If an account exists with that email, a reset link has been sent.",
                 "success": True,
             }
-
     # ── Reset Password ───────────────────────────────────
     @staticmethod
     def reset_password(data: ResetPasswordRequest) -> dict:
         """Reset password using the token from the reset email."""
         try:
             # First set the session using the access token from the reset link
-            supabase.auth.set_session(data.access_token, "")
+            supabase.auth.set_session(data.access_token, data.refresh_token)
             # Then update the password
             supabase.auth.update_user({"password": data.new_password})
             return {"message": "Password updated successfully.", "success": True}

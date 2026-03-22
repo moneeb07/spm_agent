@@ -30,6 +30,8 @@ interface AuthContextType {
     signup: (data: SignUpRequest) => Promise<void>;
     logout: () => Promise<void>;
     refreshUser: () => Promise<void>;
+    forgotPassword: (email: string) => Promise<void>;
+    resetPassword: (accessToken: string, refreshToken: string, newPassword: string) => Promise<void>;
     clearError: () => void;
 }
 
@@ -145,6 +147,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
     };
 
+    // ── Forgot Password ──────────────────────
+    const forgotPassword = async (email: string) => {
+        try {
+            setError(null);
+            setLoading(true);
+            await api.post("/api/auth/forgot-password", { email });
+        } catch (err: any) {
+            const message =
+                err.response?.data?.detail || "Something went wrong. Please try again.";
+            setError(message);
+            throw new Error(message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // ── Reset Password ──────────────────────────
+    const resetPassword = async (accessToken: string, refreshToken: string, newPassword: string) => {
+        try {
+            setError(null);
+            setLoading(true);
+            await api.post("/api/auth/reset-password", {
+                access_token: accessToken,
+                refresh_token: refreshToken,
+                new_password: newPassword,
+            });
+        } catch (err: any) {
+            const message =
+                err.response?.data?.detail || "Failed to reset password. The link may have expired.";
+            setError(message);
+            throw new Error(message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     // ── Clear error ───────────────────────────
     const clearError = () => setError(null);
 
@@ -158,6 +196,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 signup,
                 logout,
                 refreshUser,
+                forgotPassword,
+                resetPassword,
                 clearError,
             }}
         >
