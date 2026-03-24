@@ -70,10 +70,10 @@ export default function ProjectsPage() {
     if (loading) {
         return (
             <div className="min-h-screen text-white">
-                <div className="max-w-6xl mx-auto px-4 py-12">
-                    <h1 className="mb-2 text-4xl font-bold text-white">My Projects</h1>
-                    <p className="mb-8 text-slate-300">Loading your projects...</p>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="max-w-6xl mx-auto px-2 py-6 sm:px-4 sm:py-8 md:py-12">
+                    <h1 className="mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">My Projects</h1>
+                    <p className="mb-6 text-sm text-slate-300 sm:mb-8 sm:text-base">Loading your projects...</p>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
                         {[1, 2, 3].map((i) => (
                             <div
                                 key={i}
@@ -92,10 +92,10 @@ export default function ProjectsPage() {
 
     return (
         <div className="min-h-screen text-white">
-            <div className="max-w-6xl mx-auto px-4 py-12">
-                <div className="mb-12">
-                    <h1 className="mb-2 text-4xl font-bold text-white">My Projects</h1>
-                    <p className="text-lg text-slate-300">
+            <div className="max-w-6xl mx-auto px-2 py-6 sm:px-4 sm:py-8 md:py-12">
+                <div className="mb-8 sm:mb-12">
+                    <h1 className="mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">My Projects</h1>
+                    <p className="text-sm text-slate-300 sm:text-base lg:text-lg">
                         Manage and track all your software development projects
                     </p>
                 </div>
@@ -125,7 +125,7 @@ export default function ProjectsPage() {
                 )}
 
                 {projects.length > 0 && (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
                         {projects.map((project) => {
                             const description = project.description.substring(0, 120);
                             const isLongDescription = project.description.length > 120;
@@ -135,8 +135,8 @@ export default function ProjectsPage() {
                                     <Card className="group h-full overflow-hidden rounded-xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14]">
                                         <div className="h-1 bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 transition-all group-hover:h-2" />
 
-                                        <div className="p-6">
-                                            <h3 className="mb-2 line-clamp-2 text-xl font-bold text-white transition-colors group-hover:text-cyan-100">
+                                        <div className="p-4 sm:p-6">
+                                            <h3 className="mb-2 line-clamp-2 text-base font-bold text-white transition-colors group-hover:text-cyan-100 sm:text-lg lg:text-xl">
                                                 {project.title}
                                             </h3>
 

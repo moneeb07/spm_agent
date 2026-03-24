@@ -64,28 +64,29 @@ export default function ProfilePage() {
             </div>
 
             <div className="relative z-10">
-                <div className="rounded-2xl border border-white/20 bg-white/10 px-6 py-10 shadow-2xl backdrop-blur-xl md:px-12">
+                <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10">
                     <div className="max-w-4xl mx-auto">
-                        <div className="flex items-center gap-4 mb-4">
-                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20">
-                                <User size={32} className="text-cyan-200" />
+                        <div className="flex items-center gap-3 mb-4 sm:gap-4">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 sm:h-16 sm:w-16">
+                                <User size={24} className="text-cyan-200 sm:hidden" />
+                                <User size={32} className="hidden text-cyan-200 sm:block" />
                             </div>
                             <div>
-                                <h1 className="text-3xl md:text-4xl font-bold">Profile Settings</h1>
-                                <p className="mt-1 text-sm text-slate-200/80">Manage your account and preferences, {displayName}</p>
+                                <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl">Profile Settings</h1>
+                                <p className="mt-1 text-xs text-slate-200/80 sm:text-sm">Manage your account and preferences, {displayName}</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="max-w-4xl mx-auto px-6 py-12 md:px-12">
-                    <Card className="mb-8 rounded-xl border border-white/20 bg-white/10 p-6 backdrop-blur-xl">
+                <div className="max-w-4xl mx-auto px-2 py-6 sm:px-4 sm:py-8 md:px-12 md:py-12">
+                    <Card className="mb-6 rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl sm:mb-8 sm:p-6">
                         <p className="text-sm leading-relaxed text-slate-200/85">
                             <span className="font-semibold text-white">These settings influence how the AI generates your project roadmaps.</span> Your skill level, available hours, and preferred pace help create personalized timelines and task breakdowns.
                         </p>
                     </Card>
 
-                    <Card className="mb-8 rounded-xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl">
+                    <Card className="mb-6 rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl sm:mb-8 sm:p-6 md:p-8">
                         <div className="flex items-start gap-4">
                             <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                 <Mail className="text-cyan-200" size={24} />
@@ -99,7 +100,7 @@ export default function ProfilePage() {
                     </Card>
 
                     <div className="space-y-8">
-                        <Card className="rounded-xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12]">
+                        <Card className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12] sm:p-6 md:p-8">
                             <div className="flex items-start gap-4">
                                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                     <User className="text-cyan-200" size={24} />
@@ -117,7 +118,7 @@ export default function ProfilePage() {
                             </div>
                         </Card>
 
-                        <Card className="rounded-xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12]">
+                        <Card className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12] sm:p-6 md:p-8">
                             <div className="flex items-start gap-4">
                                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                     <Code className="text-cyan-200" size={24} />

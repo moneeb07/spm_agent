@@ -38,18 +38,18 @@ export default function DashboardPage() {
             </div>
 
             <div className="relative z-10">
-                <div className="rounded-2xl border border-white/20 bg-white/10 px-6 py-10 shadow-2xl backdrop-blur-xl md:px-12">
+                <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10">
                     <div className="max-w-6xl mx-auto">
-                        <h1 className="mb-2 text-4xl font-bold md:text-5xl">Welcome back, {displayName}!</h1>
-                        <p className="text-lg text-slate-200/80">Manage your projects and track deadlines with AI-powered planning</p>
+                        <h1 className="mb-2 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">Welcome back, {displayName}!</h1>
+                        <p className="text-sm text-slate-200/80 sm:text-base lg:text-lg">Manage your projects and track deadlines with AI-powered planning</p>
                     </div>
                 </div>
 
-                <div className="max-w-6xl mx-auto px-6 py-12 md:px-12">
+                <div className="max-w-6xl mx-auto px-2 py-6 sm:px-4 sm:py-8 md:px-12 md:py-12">
                     <div>
-                        <div className="flex items-center gap-2 mb-6">
-                            <div className="h-8 w-1 rounded bg-cyan-300" />
-                            <h2 className="text-2xl font-bold text-white">Upcoming Deadlines</h2>
+                        <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                            <div className="h-6 w-1 rounded bg-cyan-300 sm:h-8" />
+                            <h2 className="text-xl font-bold text-white sm:text-2xl">Upcoming Deadlines</h2>
                         </div>
 
                         {deadlinesLoading ? (
@@ -67,24 +67,25 @@ export default function DashboardPage() {
                                 {deadlines.map((d) => (
                                     <Card
                                         key={d.task_id}
-                                        className="group cursor-pointer border border-white/20 bg-white/10 p-6 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14]"
+                                        className="group cursor-pointer border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14] sm:p-6"
                                     >
-                                        <div className="flex items-start justify-between gap-4">
+                                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="truncate font-semibold text-white transition-colors group-hover:text-cyan-100">
+                                                <h3 className="truncate text-sm font-semibold text-white transition-colors group-hover:text-cyan-100 sm:text-base">
                                                     {d.project_title}
                                                 </h3>
-                                                <p className="mt-1 truncate text-sm text-slate-300">{d.task_title}</p>
+                                                <p className="mt-1 truncate text-xs text-slate-300 sm:text-sm">{d.task_title}</p>
                                             </div>
                                             <div className="flex items-center gap-3 flex-shrink-0">
-                                                <div className="text-right">
-                                                    <div className="flex items-center gap-1 text-sm font-medium text-slate-200">
-                                                        <Calendar size={16} className="text-cyan-200" />
+                                                <div className="text-left sm:text-right">
+                                                    <div className="flex items-center gap-1 text-xs font-medium text-slate-200 sm:text-sm">
+                                                        <Calendar size={14} className="text-cyan-200 sm:hidden" />
+                                                        <Calendar size={16} className="hidden text-cyan-200 sm:block" />
                                                         {d.deadline}
                                                     </div>
-                                                    <div className="mt-2">
+                                                    <div className="mt-1 sm:mt-2">
                                                         <span
-                                                            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${d.status === 'completed'
+                                                            className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold sm:px-3 sm:py-1 ${d.status === 'completed'
                                                                 ? 'bg-emerald-500/20 text-emerald-200'
                                                                 : d.status === 'in-progress'
                                                                     ? 'bg-cyan-500/20 text-cyan-200'
@@ -95,7 +96,7 @@ export default function DashboardPage() {
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <ChevronRight className="text-slate-400 transition-colors group-hover:text-cyan-200" size={20} />
+                                                <ChevronRight className="hidden text-slate-400 transition-colors group-hover:text-cyan-200 sm:block" size={20} />
                                             </div>
                                         </div>
                                     </Card>

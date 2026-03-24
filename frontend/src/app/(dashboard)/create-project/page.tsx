@@ -160,21 +160,21 @@ export default function CreateProjectPage() {
             </div>
 
             <div className="relative z-10">
-                <div className="rounded-2xl border border-white/20 bg-white/10 px-6 py-10 shadow-2xl backdrop-blur-xl md:px-12">
+                <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10">
                     <div className="max-w-6xl mx-auto">
-                        <h1 className="mb-2 text-4xl font-bold md:text-5xl">Create New Project</h1>
-                        <p className="text-lg text-slate-200/80">Describe your idea and let AI generate a complete roadmap</p>
+                        <h1 className="mb-2 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">Create New Project</h1>
+                        <p className="text-sm text-slate-200/80 sm:text-base lg:text-lg">Describe your idea and let AI generate a complete roadmap</p>
                     </div>
                 </div>
 
-                <div className="max-w-6xl mx-auto px-6 py-12 md:px-12">
-                    <div className="flex items-center gap-2 mb-6">
-                        <div className="h-8 w-1 rounded bg-cyan-300" />
-                        <h2 className="text-2xl font-bold text-white">Project Details</h2>
+                <div className="max-w-6xl mx-auto px-2 py-6 sm:px-4 sm:py-8 md:px-12 md:py-12">
+                    <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                        <div className="h-6 w-1 rounded bg-cyan-300 sm:h-8" />
+                        <h2 className="text-xl font-bold text-white sm:text-2xl">Project Details</h2>
                     </div>
 
                     {!showWizard ? (
-                        <Card className="border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12]">
+                        <Card className="border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12] sm:p-6 md:p-8">
                             <div className="space-y-6">
                                 <div>
                                     <Label className="mb-3 block text-sm font-semibold text-slate-100">
@@ -198,7 +198,7 @@ export default function CreateProjectPage() {
                             </div>
                         </Card>
                     ) : (
-                        <Card className="border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl">
+                        <Card className="border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur-xl sm:p-6 md:p-8">
                             <div className="space-y-6">
                                 <div>
                                     <Label className="mb-2 block text-sm font-semibold text-slate-100">
@@ -342,7 +342,7 @@ export default function CreateProjectPage() {
                                     </Alert>
                                 )}
 
-                                <div className="flex gap-4 pt-4">
+                                <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:gap-4">
                                     <Button
                                         onClick={handleCreateProject}
                                         disabled={isCreating}
@@ -378,10 +378,10 @@ export default function CreateProjectPage() {
 
                     {/* Terminal Block — shows during/after generation */}
                     {showTerminal && (
-                        <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <div className="flex items-center gap-2 mb-4">
-                                <div className="h-8 w-1 rounded bg-emerald-400" />
-                                <h2 className="text-2xl font-bold text-white">AI Generation Output</h2>
+                        <div className="mt-6 animate-in fade-in slide-in-from-bottom-4 duration-500 sm:mt-8">
+                            <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                                <div className="h-6 w-1 rounded bg-emerald-400 sm:h-8" />
+                                <h2 className="text-xl font-bold text-white sm:text-2xl">AI Generation Output</h2>
                             </div>
                             <TerminalBlock lines={terminalLines} isActive={terminalActive} />
                         </div>
