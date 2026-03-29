@@ -154,13 +154,14 @@ export default function CreateProjectPage() {
 
     return (
         <div className="min-h-screen text-white">
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-                <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl" />
-            </div>
-
-            <div className="relative z-10">
-                <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10">
+            <div className="relative">
+                <div
+                    className="rounded-2xl border border-white/15 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10"
+                    style={{
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+                    }}
+                >
                     <div className="max-w-6xl mx-auto">
                         <h1 className="mb-2 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">Create New Project</h1>
                         <p className="text-sm text-slate-200/80 sm:text-base lg:text-lg">Describe your idea and let AI generate a complete roadmap</p>
@@ -174,7 +175,7 @@ export default function CreateProjectPage() {
                     </div>
 
                     {!showWizard ? (
-                        <Card className="border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12] sm:p-6 md:p-8">
+                        <Card className="border border-white/15 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl rounded-xl sm:p-6 md:p-8">
                             <div className="space-y-6">
                                 <div>
                                     <Label className="mb-3 block text-sm font-semibold text-slate-100">
@@ -184,13 +185,13 @@ export default function CreateProjectPage() {
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         placeholder="Describe your project idea... What are you building? What problem does it solve?"
-                                        className="h-32 w-full resize-none border-white/20 bg-white/5 p-4 text-white placeholder:text-slate-300/60 transition-all duration-300 focus-visible:ring-white/50"
+                                        className="h-32 w-full resize-none rounded-xl border-white/15 bg-white/5 p-4 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     />
                                 </div>
                                 <Button
                                     onClick={handleStartProject}
                                     disabled={!description.trim()}
-                                    className="w-full rounded-xl bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 py-3 font-semibold text-white transition-all duration-300 hover:scale-[1.01] hover:from-indigo-500 hover:to-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
+                                    className="w-full rounded-xl bg-amber-600 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:bg-amber-500 hover:shadow-amber-600/25 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                                 >
                                     <Plus size={20} />
                                     Start Project
@@ -198,7 +199,7 @@ export default function CreateProjectPage() {
                             </div>
                         </Card>
                     ) : (
-                        <Card className="border border-white/20 bg-white/10 p-4 shadow-2xl backdrop-blur-xl sm:p-6 md:p-8">
+                        <Card className="border border-white/15 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-xl rounded-xl sm:p-6 md:p-8">
                             <div className="space-y-6">
                                 <div>
                                     <Label className="mb-2 block text-sm font-semibold text-slate-100">
@@ -211,7 +212,7 @@ export default function CreateProjectPage() {
                                         onChange={(e) =>
                                             setFormData((prev) => ({ ...prev, title: e.target.value }))
                                         }
-                                        className="w-full border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
+                                        className="h-12 w-full rounded-xl border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     />
                                 </div>
 
@@ -225,7 +226,7 @@ export default function CreateProjectPage() {
                                             setFormData((prev) => ({ ...prev, description: e.target.value }))
                                         }
                                         placeholder="Project description"
-                                        className="h-24 w-full resize-none border-white/20 bg-white/5 p-4 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
+                                        className="h-24 w-full resize-none rounded-xl border-white/15 bg-white/5 p-4 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     />
                                 </div>
 
@@ -238,7 +239,7 @@ export default function CreateProjectPage() {
                                         placeholder="React, FastAPI, PostgreSQL (comma-separated)"
                                         value={techStackInput}
                                         onChange={(e) => setTechStackInput(e.target.value)}
-                                        className="w-full border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
+                                        className="h-12 w-full rounded-xl border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     />
                                 </div>
 
@@ -247,9 +248,9 @@ export default function CreateProjectPage() {
                                         Planning Mode
                                     </Label>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all" style={{
-                                            borderColor: formData.planning_mode === 'deadline' ? 'rgba(103,232,249,0.5)' : 'rgba(255,255,255,0.2)',
-                                            backgroundColor: formData.planning_mode === 'deadline' ? 'rgba(34,211,238,0.12)' : 'rgba(255,255,255,0.05)'
+                                        <label className="flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-200" style={{
+                                            borderColor: formData.planning_mode === 'deadline' ? 'rgba(103,232,249,0.3)' : 'rgba(255,255,255,0.15)',
+                                            backgroundColor: formData.planning_mode === 'deadline' ? 'rgba(34,211,238,0.08)' : 'rgba(255,255,255,0.04)'
                                         }}>
                                             <input
                                                 type="radio"
@@ -270,9 +271,9 @@ export default function CreateProjectPage() {
                                             </div>
                                         </label>
 
-                                        <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all" style={{
-                                            borderColor: formData.planning_mode === 'open' ? 'rgba(103,232,249,0.5)' : 'rgba(255,255,255,0.2)',
-                                            backgroundColor: formData.planning_mode === 'open' ? 'rgba(34,211,238,0.12)' : 'rgba(255,255,255,0.05)'
+                                        <label className="flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-200" style={{
+                                            borderColor: formData.planning_mode === 'open' ? 'rgba(103,232,249,0.3)' : 'rgba(255,255,255,0.15)',
+                                            backgroundColor: formData.planning_mode === 'open' ? 'rgba(34,211,238,0.08)' : 'rgba(255,255,255,0.04)'
                                         }}>
                                             <input
                                                 type="radio"
@@ -309,7 +310,7 @@ export default function CreateProjectPage() {
                                                     deadline_date: e.target.value,
                                                 }))
                                             }
-                                            className="w-full border-white/20 bg-white/5 px-4 py-3 text-white focus-visible:ring-white/50"
+                                            className="h-12 w-full rounded-xl border-white/15 bg-white/5 px-4 py-3 text-white transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                         />
                                     </div>
                                 )}
@@ -330,7 +331,7 @@ export default function CreateProjectPage() {
                                             }))
                                         }
                                         placeholder="e.g., 6"
-                                        className="w-full border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
+                                        className="w-full rounded-xl border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     />
                                     <p className="mt-2 text-sm text-slate-300/80">How many hours per day can you dedicate to this project?</p>
                                 </div>
@@ -346,7 +347,7 @@ export default function CreateProjectPage() {
                                     <Button
                                         onClick={handleCreateProject}
                                         disabled={isCreating}
-                                        className="flex-1 rounded-xl bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 py-3 font-semibold text-white transition-all duration-300 hover:scale-[1.01] hover:from-indigo-500 hover:to-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
+                                        className="flex-1 rounded-xl bg-amber-600 py-3 font-bold text-white shadow-lg transition-all duration-300 hover:bg-amber-500 hover:shadow-amber-600/25 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                                     >
                                         {isCreating ? (
                                             <>
@@ -367,7 +368,7 @@ export default function CreateProjectPage() {
                                         }}
                                         variant="outline"
                                         disabled={isCreating}
-                                        className="flex-1 rounded-xl border-white/30 bg-white/5 py-3 font-semibold text-white transition-all duration-300 hover:border-white/50 hover:bg-white/10"
+                                        className="flex-1 rounded-xl border-white/15 bg-white/5 py-3 font-semibold text-white transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:-translate-y-0.5"
                                     >
                                         Cancel
                                     </Button>

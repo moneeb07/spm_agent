@@ -32,13 +32,14 @@ export default function DashboardPage() {
 
     return (
         <div className="min-h-screen text-white">
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-                <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl" />
-            </div>
-
-            <div className="relative z-10">
-                <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10">
+            <div className="relative">
+                <div
+                    className="rounded-2xl border border-white/15 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10 transition-all duration-300 hover:scale-[1.01]"
+                    style={{
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+                    }}
+                >
                     <div className="max-w-6xl mx-auto">
                         <h1 className="mb-2 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">Welcome back, {displayName}!</h1>
                         <p className="text-sm text-slate-200/80 sm:text-base lg:text-lg">Manage your projects and track deadlines with AI-powered planning</p>
@@ -57,7 +58,7 @@ export default function DashboardPage() {
                                 <div className="h-8 w-8 animate-spin rounded-full border-4 border-white/20 border-t-cyan-300" />
                             </div>
                         ) : deadlines.length === 0 ? (
-                            <Card className="border border-dashed border-white/30 bg-white/5 p-12 text-center backdrop-blur-xl">
+                            <Card className="border border-dashed border-white/15 bg-white/[0.05] p-12 text-center backdrop-blur-xl rounded-2xl">
                                 <Calendar className="mx-auto mb-4 h-12 w-12 text-cyan-200" />
                                 <p className="font-medium text-slate-100">No upcoming deadlines</p>
                                 <p className="mt-1 text-sm text-slate-300/80">Create a project to begin planning!</p>
@@ -67,7 +68,7 @@ export default function DashboardPage() {
                                 {deadlines.map((d) => (
                                     <Card
                                         key={d.task_id}
-                                        className="group cursor-pointer border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14] sm:p-6"
+                                        className="group cursor-pointer border border-white/15 bg-white/[0.06] p-4 rounded-xl backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 sm:p-6"
                                     >
                                         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                                             <div className="flex-1 min-w-0">

@@ -29,10 +29,18 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="gradient-bg relative min-h-screen">
-            <div className="relative z-10 flex min-h-screen">
-                {/* Left sidebar — desktop only */}
-                <section className="hidden lg:flex fixed left-0 top-0 h-full w-1/2 flex-col justify-between glass-effect border-r border-white/10 px-12 py-14">
+        <div
+            className="relative min-h-screen overflow-hidden text-white"
+            style={{ background: 'linear-gradient(135deg, #0a0f1e 0%, #111b33 40%, #0f172a 70%, #0c1322 100%)' }}
+        >
+            {/* Static ambient glow shapes — NO animation */}
+            <div className="pointer-events-none absolute -top-32 -left-32 h-[30rem] w-[30rem] rounded-full bg-cyan-500/10 blur-[120px]" />
+            <div className="pointer-events-none absolute top-1/3 -right-32 h-[34rem] w-[34rem] rounded-full bg-indigo-500/10 blur-[120px]" />
+            <div className="pointer-events-none absolute -bottom-32 left-1/3 h-96 w-96 rounded-full bg-violet-500/8 blur-[120px]" />
+
+            <div className="relative z-10 grid min-h-screen grid-cols-1 lg:grid-cols-2">
+                {/* Left panel — Brand & value proposition (desktop only) */}
+                <section className="hidden lg:flex flex-col justify-between border-r border-white/10 bg-white/[0.03] px-12 py-14 backdrop-blur-sm">
                     <div>
                         <div className="inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-2 hover-lift">
                             <div className="rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 p-2">
@@ -70,9 +78,9 @@ export default function LoginPage() {
                     <p className="text-sm text-white/30">© {new Date().getFullYear()} SPM Agent. All rights reserved.</p>
                 </section>
 
-                {/* Right section — login form */}
-                <section className="relative z-20 w-full lg:ml-[50%] lg:w-1/2 flex items-center justify-center px-4 py-10 sm:px-8">
-                    <Card className="glass-effect w-full max-w-md rounded-2xl border border-white/10 p-6 shadow-2xl sm:p-8">
+                {/* Right panel — Login form */}
+                <section className="flex items-center justify-center px-4 py-10 sm:px-8">
+                    <Card className="w-full max-w-md rounded-2xl border border-white/15 bg-white/[0.07] p-6 shadow-2xl backdrop-blur-xl sm:p-8 transition-all duration-300 hover:scale-[1.02] focus-within:scale-[1.02] hover:shadow-[0_32px_80px_rgba(0,0,0,0.3),0_16px_64px_rgba(255,255,255,0.05)]">
                         <div className="mb-8 space-y-2">
                             {/* Mobile logo */}
                             <div className="mb-6 flex items-center gap-2 lg:hidden">
@@ -82,7 +90,7 @@ export default function LoginPage() {
                                 <span className="text-sm font-medium text-white/70">SPM Agent</span>
                             </div>
                             <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Welcome back</h2>
-                            <p className="text-sm text-white/50 sm:text-base">Sign in to continue to your workspace.</p>
+                            <p className="text-sm text-slate-200/70 sm:text-base">Sign in to continue to your workspace.</p>
                         </div>
 
                         {error && (
@@ -103,7 +111,7 @@ export default function LoginPage() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     placeholder="you@example.com"
-                                    className="h-11 rounded-lg border-white/10 bg-white/5 text-white placeholder:text-white/30 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-amber-400/50 focus-glow"
+                                    className="h-12 rounded-xl border-white/20 bg-white/5 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                 />
                             </div>
 
@@ -119,7 +127,7 @@ export default function LoginPage() {
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
                                         placeholder="••••••••"
-                                        className="h-11 pr-12 rounded-lg border-white/10 bg-white/5 text-white placeholder:text-white/30 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-amber-400/50 focus-glow"
+                                        className="h-12 pr-12 rounded-xl border-white/20 bg-white/5 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     />
                                     <Button
                                         type="button"
@@ -140,7 +148,7 @@ export default function LoginPage() {
                             <div className="flex justify-end">
                                 <Link
                                     href="/forgot-password"
-                                    className="text-sm font-medium text-amber-400/80 transition-colors duration-200 hover:text-amber-400"
+                                    className="inline-block text-sm font-medium text-cyan-200/90 transition-all duration-200 hover:text-cyan-100 hover:-translate-y-0.5"
                                 >
                                     Forgot password?
                                 </Link>
@@ -150,18 +158,16 @@ export default function LoginPage() {
                                 type="submit"
                                 disabled={loading}
                                 size="lg"
-                                className="w-full rounded-xl font-semibold shadow-lg transition-all duration-300 bg-gradient-to-r from-amber-400 to-orange-500 text-white hover:from-amber-500 hover:to-orange-600 hover:shadow-amber-500/20 hover:shadow-xl disabled:opacity-50"
+                                className="w-full rounded-xl bg-amber-600 font-bold py-5 text-white shadow-lg transition-all duration-300 hover:bg-amber-500 hover:shadow-amber-600/25 hover:-translate-y-0.5 disabled:opacity-50"
                             >
                                 {loading ? "Signing in..." : "Sign In"}
                             </Button>
                         </form>
 
                         <div className="my-6 relative">
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="w-full border-t border-white/10" />
-                            </div>
+
                             <div className="relative flex justify-center text-sm">
-                                <span className="bg-transparent px-3 text-white/30">New here?</span>
+                                <span className="bg-transparent px-3 text-slate-200/60">New user?</span>
                             </div>
                         </div>
 
@@ -169,12 +175,12 @@ export default function LoginPage() {
                             asChild
                             variant="outline"
                             size="lg"
-                            className="w-full rounded-xl border border-white/10 bg-white/5 font-semibold text-white/80 transition-all duration-300 hover:border-white/20 hover:bg-white/10"
+                            className="w-full rounded-xl border-white/20 bg-white/5 font-semibold text-white transition-all duration-300 hover:border-white/40 hover:bg-white/10 hover:text-white hover:-translate-y-0.5"
                         >
                             <Link href="/signup">Create Account</Link>
                         </Button>
 
-                        <p className="mt-6 text-center text-xs text-white/30">
+                        <p className="mt-6 text-center text-xs text-slate-200/60">
                             By signing in, you agree to our{" "}
                             <Link href="#" className="underline underline-offset-2 text-amber-400/60 transition-colors hover:text-amber-400/80">
                                 Terms of Service
