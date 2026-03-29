@@ -58,13 +58,14 @@ export default function ProfilePage() {
 
     return (
         <div className="min-h-screen text-white">
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-                <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl" />
-            </div>
-
-            <div className="relative z-10">
-                <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10">
+            <div className="relative">
+                <div
+                    className="rounded-2xl border border-white/15 px-4 py-6 shadow-2xl backdrop-blur-xl sm:px-6 sm:py-8 md:px-12 md:py-10"
+                    style={{
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+                    }}
+                >
                     <div className="max-w-4xl mx-auto">
                         <div className="flex items-center gap-3 mb-4 sm:gap-4">
                             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 sm:h-16 sm:w-16">
@@ -80,13 +81,13 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="max-w-4xl mx-auto px-2 py-6 sm:px-4 sm:py-8 md:px-12 md:py-12">
-                    <Card className="mb-6 rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl sm:mb-8 sm:p-6">
+                    <Card className="mb-6 rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl sm:mb-8 sm:p-6">
                         <p className="text-sm leading-relaxed text-slate-200/85">
                             <span className="font-semibold text-white">These settings influence how the AI generates your project roadmaps.</span> Your skill level, available hours, and preferred pace help create personalized timelines and task breakdowns.
                         </p>
                     </Card>
 
-                    <Card className="mb-6 rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl sm:mb-8 sm:p-6 md:p-8">
+                    <Card className="mb-6 rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl sm:mb-8 sm:p-6 md:p-8">
                         <div className="flex items-start gap-4">
                             <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                 <Mail className="text-cyan-200" size={24} />
@@ -100,7 +101,7 @@ export default function ProfilePage() {
                     </Card>
 
                     <div className="space-y-8">
-                        <Card className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12] sm:p-6 md:p-8">
+                        <Card className="rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] sm:p-6 md:p-8">
                             <div className="flex items-start gap-4">
                                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                     <User className="text-cyan-200" size={24} />
@@ -112,13 +113,13 @@ export default function ProfilePage() {
                                         value={fullName}
                                         onChange={(e) => setFullName(e.target.value)}
                                         placeholder="Enter your full name"
-                                        className="w-full border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-slate-300/60 focus-visible:ring-white/50"
+                                        className="h-12 w-full rounded-xl border-white/15 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400/60 transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     />
                                 </div>
                             </div>
                         </Card>
 
-                        <Card className="rounded-xl border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12] sm:p-6 md:p-8">
+                        <Card className="rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] sm:p-6 md:p-8">
                             <div className="flex items-start gap-4">
                                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                     <Code className="text-cyan-200" size={24} />
@@ -128,20 +129,20 @@ export default function ProfilePage() {
                                     <select
                                         value={skillLevel}
                                         onChange={(e) => setSkillLevel(e.target.value as 'junior' | 'medium' | 'senior')}
-                                        className="w-full rounded-md border border-white/20 bg-white/5 px-4 py-3 font-medium text-white transition-all focus:outline-none focus:ring-1 focus:ring-white/50"
+                                        className="h-12 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 font-medium text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                     >
                                         <option value="junior" className="bg-slate-900 text-white">Junior</option>
                                         <option value="medium" className="bg-slate-900 text-white">Medium</option>
                                         <option value="senior" className="bg-slate-900 text-white">Senior</option>
                                     </select>
-                                    <p className="mt-3 rounded-lg border border-white/20 bg-white/5 p-3 text-sm text-slate-300">
+                                    <p className="mt-3 rounded-xl border border-white/15 bg-white/[0.04] p-3 text-sm text-slate-300">
                                         {skillLevelDescriptions[skillLevel as 'junior' | 'medium' | 'senior']}
                                     </p>
                                 </div>
                             </div>
                         </Card>
 
-                        <Card className="rounded-xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12]">
+                        <Card className="rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] sm:p-6 md:p-8">
                             <div className="flex items-start gap-4">
                                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                     <Clock className="text-cyan-200" size={24} />
@@ -158,7 +159,7 @@ export default function ProfilePage() {
                                             step={0.5}
                                             value={hoursPerDay}
                                             onChange={(e) => setHoursPerDay(Number(e.target.value))}
-                                            className="flex-1 border-white/20 bg-white/5 px-4 py-3 text-white focus-visible:ring-white/50"
+                                            className="h-12 flex-1 rounded-xl border-white/15 bg-white/5 px-4 py-3 text-white transition-all duration-200 focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-400/40 focus:bg-white/10"
                                         />
                                         <span className="whitespace-nowrap font-semibold text-slate-200">hours/day</span>
                                     </div>
@@ -169,7 +170,7 @@ export default function ProfilePage() {
                             </div>
                         </Card>
 
-                        <Card className="rounded-xl border border-white/20 bg-white/10 p-8 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.12]">
+                        <Card className="rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] sm:p-6 md:p-8">
                             <div className="flex items-start gap-4">
                                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 ring-1 ring-white/20">
                                     <Zap className="text-cyan-200" size={24} />
@@ -181,10 +182,10 @@ export default function ProfilePage() {
                                         {(['relaxed', 'medium', 'aggressive'] as const).map((paceOption) => (
                                             <label
                                                 key={paceOption}
-                                                className="flex cursor-pointer items-center rounded-lg border-2 p-4 transition-all"
+                                                className="flex cursor-pointer items-center rounded-xl border-2 p-4 transition-all duration-200"
                                                 style={{
-                                                    borderColor: pace === paceOption ? 'rgba(103,232,249,0.5)' : 'rgba(255,255,255,0.2)',
-                                                    backgroundColor: pace === paceOption ? 'rgba(34,211,238,0.12)' : 'rgba(255,255,255,0.05)',
+                                                    borderColor: pace === paceOption ? 'rgba(103,232,249,0.3)' : 'rgba(255,255,255,0.15)',
+                                                    backgroundColor: pace === paceOption ? 'rgba(34,211,238,0.08)' : 'rgba(255,255,255,0.04)',
                                                 }}
                                             >
                                                 <input
@@ -226,7 +227,7 @@ export default function ProfilePage() {
                         <Button
                             onClick={handleSave}
                             disabled={saving}
-                            className="w-full rounded-xl bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 py-4 text-lg font-semibold text-white transition-all duration-300 hover:scale-[1.01] hover:from-indigo-500 hover:to-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="w-full rounded-xl bg-amber-600 py-4 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:bg-amber-500 hover:shadow-amber-600/25 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {saving ? (
                                 <>

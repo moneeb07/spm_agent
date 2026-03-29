@@ -25,7 +25,7 @@ export default function Sidebar() {
     return (
         <>
             {/* ── Mobile top bar ─────────────────────────────── */}
-            <div className="fixed left-0 right-0 top-0 z-50 flex h-14 items-center justify-between border-b border-white/10 bg-slate-950/95 px-4 backdrop-blur-xl lg:hidden">
+            <div className="fixed left-0 right-0 top-0 z-50 flex h-14 items-center justify-between border-b border-white/15 bg-slate-950/80 px-4 backdrop-blur-2xl shadow-lg shadow-black/20 lg:hidden">
                 <div className="flex items-center gap-2">
                     <div className="rounded-md bg-white/10 p-1.5 ring-1 ring-white/20">
                         <Zap className="h-4 w-4 text-cyan-200" />
@@ -50,14 +50,19 @@ export default function Sidebar() {
 
             {/* ── Sidebar drawer ─────────────────────────────── */}
             <aside
-                className={`fixed left-0 top-0 z-50 flex min-h-screen w-64 flex-col border-r border-white/10 bg-slate-950/95 text-white backdrop-blur-xl transition-transform duration-300 lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"
+                className={`fixed left-0 top-0 z-50 flex min-h-screen w-64 flex-col border-r border-white/15 text-white transition-transform duration-300 lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"
                     }`}
+                style={{
+                    background: 'rgba(2, 6, 23, 0.85)',
+                    backdropFilter: 'blur(40px) saturate(180%)',
+                    boxShadow: '4px 0 32px rgba(0, 0, 0, 0.4), inset -1px 0 0 rgba(255, 255, 255, 0.05)',
+                }}
             >
                 {/* Header */}
-                <div className="border-b border-white/10 p-6">
+                <div className="border-b border-white/10 p-6 bg-white/[0.02]">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="rounded-lg bg-white/10 p-2 ring-1 ring-white/20">
+                            <div className="rounded-xl bg-white/10 p-2 ring-1 ring-white/20 shadow-lg shadow-cyan-500/5">
                                 <Zap className="h-6 w-6 text-cyan-200" />
                             </div>
                             <div>
@@ -87,9 +92,9 @@ export default function Sidebar() {
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setOpen(false)}
-                                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${active
-                                        ? "border border-white/20 bg-white/15 text-white shadow-lg font-semibold"
-                                        : "text-slate-300 hover:bg-white/10 hover:text-white"
+                                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${active
+                                        ? "border border-white/20 bg-white/10 text-white shadow-lg font-semibold backdrop-blur-sm"
+                                        : "text-slate-300 hover:bg-white/10 hover:text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-black/20"
                                         }`}
                                 >
                                     <IconComponent className="w-5 h-5" />
@@ -106,7 +111,7 @@ export default function Sidebar() {
                 {/* Divider */}
                 <div className="border-t border-white/10 px-4 py-4">
                     {/* User Info */}
-                    <div className="mb-4 rounded-lg border border-white/10 bg-white/5 p-3">
+                    <div className="mb-4 rounded-xl border border-white/15 bg-white/[0.06] p-3 backdrop-blur-sm shadow-inner shadow-white/[0.02]">
                         <p className="truncate text-sm font-medium text-white">
                             {displayName}
                         </p>
@@ -119,7 +124,7 @@ export default function Sidebar() {
                     <Button
                         onClick={logout}
                         variant="outline"
-                        className="w-full border-white/20 bg-white/5 text-slate-100 transition-colors hover:bg-white/10 hover:text-white"
+                        className="w-full rounded-xl border-white/20 bg-white/5 text-slate-100 transition-all duration-300 hover:bg-white/10 hover:text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-black/20"
                     >
                         <LogOut className="w-4 h-4" />
                         <span>Logout</span>

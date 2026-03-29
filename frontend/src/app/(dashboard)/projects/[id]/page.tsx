@@ -126,7 +126,7 @@ export default function ProjectDetailPage() {
     return (
         <div className="min-h-screen text-white">
             <div className="max-w-6xl mx-auto px-2 py-4 sm:px-4 sm:py-6 md:py-8">
-                <Card className="mb-6 rounded-xl border border-white/20 bg-white/10 p-4 text-white shadow-2xl backdrop-blur-xl sm:mb-8 sm:p-6 md:p-8">
+                <Card className="mb-6 rounded-xl border border-white/15 bg-white/[0.06] p-4 text-white shadow-2xl backdrop-blur-xl sm:mb-8 sm:p-6 md:p-8">
                     <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-start sm:justify-between">
                         <div>
                             <h1 className="text-2xl font-bold mb-2 sm:text-3xl md:text-4xl">{project.title}</h1>
@@ -134,7 +134,7 @@ export default function ProjectDetailPage() {
                         </div>
                     </div>
 
-                    <div className="mt-4 grid grid-cols-2 gap-3 border-t border-white/20 pt-4 sm:mt-6 sm:gap-4 sm:pt-6 md:grid-cols-4">
+                    <div className="mt-4 grid grid-cols-2 gap-3 border-t border-white/15 pt-4 sm:mt-6 sm:gap-4 sm:pt-6 md:grid-cols-4">
                         <div>
                             <p className="mb-1 text-xs text-slate-300 sm:text-sm">Status</p>
                             <span
@@ -171,7 +171,7 @@ export default function ProjectDetailPage() {
                     </div>
                 </Card>
 
-                <Card className="mb-6 rounded-lg border border-white/20 bg-white/10 p-4 backdrop-blur-xl sm:mb-8 sm:p-6">
+                <Card className="mb-6 rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl sm:mb-8 sm:p-6">
                     <div className="flex flex-col gap-2 mb-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-2">
                             <Zap className="h-4 w-4 text-cyan-200 sm:h-5 sm:w-5" />
@@ -181,16 +181,16 @@ export default function ProjectDetailPage() {
                             {completedTasks}/{totalTasks} tasks completed
                         </span>
                     </div>
-                    <div className="h-3 w-full overflow-hidden rounded-full bg-white/20">
+                    <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">
                         <div
-                            className="h-full rounded-full bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 transition-all duration-300"
+                            className="h-full rounded-full bg-amber-500 transition-all duration-300"
                             style={{ width: `${projectProgress}%` }}
                         />
                     </div>
                 </Card>
 
                 <Tabs defaultValue="flowchart" className="w-full">
-                    <TabsList className="mb-4 grid w-full grid-cols-3 rounded-lg border border-white/20 bg-white/10 p-1 shadow-sm sm:mb-6">
+                    <TabsList className="mb-4 grid w-full grid-cols-3 rounded-xl border border-white/15 bg-white/[0.06] p-1 shadow-sm sm:mb-6">
                         <TabsTrigger value="flowchart" className="text-slate-200 data-[state=active]:bg-white/20 data-[state=active]:text-white">
                             Flowchart
                         </TabsTrigger>
@@ -202,7 +202,7 @@ export default function ProjectDetailPage() {
                         </TabsTrigger>
                     </TabsList>
 
-                    <TabsContent value="flowchart" className="overflow-x-auto rounded-lg border border-white/20 bg-white/10 p-3 shadow-sm backdrop-blur-xl sm:p-6">
+                    <TabsContent value="flowchart" className="overflow-x-auto rounded-xl border border-white/15 bg-white/[0.06] p-3 shadow-sm backdrop-blur-xl sm:p-6">
                         <ModuleFlowchart modules={project.modules} />
                     </TabsContent>
 
@@ -219,7 +219,7 @@ export default function ProjectDetailPage() {
                             return (
                                 <Card
                                     key={module.id}
-                                    className="rounded-lg border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14] sm:p-6"
+                                    className="rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10] sm:p-6"
                                 >
                                     <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-start sm:justify-between">
                                         <div className="flex-1">
@@ -235,22 +235,22 @@ export default function ProjectDetailPage() {
                                         </div>
                                     </div>
 
-                                    <div className="mb-4 rounded-lg border border-white/20 bg-white/5 p-4">
+                                    <div className="mb-4 rounded-xl border border-white/15 bg-white/[0.04] p-4">
                                         <div className="flex justify-between items-center mb-2">
                                             <span className="text-sm font-medium text-slate-200">Progress</span>
                                             <span className="text-sm font-semibold text-cyan-200">
                                                 {moduleCompletedTasks}/{module.tasks.length}
                                             </span>
                                         </div>
-                                        <div className="h-2 w-full overflow-hidden rounded-full bg-white/20">
+                                        <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
                                             <div
-                                                className="h-full bg-gradient-to-r from-indigo-500/90 to-cyan-400/90 transition-all"
+                                                className="h-full bg-amber-500 transition-all"
                                                 style={{ width: `${moduleProgress}%` }}
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="mb-4 flex flex-col gap-2 border-b border-white/20 pb-4 text-sm text-slate-300 sm:flex-row sm:items-center sm:gap-6">
+                                    <div className="mb-4 flex flex-col gap-2 border-b border-white/15 pb-4 text-sm text-slate-300 sm:flex-row sm:items-center sm:gap-6">
                                         <div className="flex items-center gap-2">
                                             <Calendar className="h-4 w-4 text-cyan-200" />
                                             <span>
@@ -271,7 +271,7 @@ export default function ProjectDetailPage() {
                                             {module.tasks.map((task) => (
                                                 <div
                                                     key={task.id}
-                                                    className="flex flex-col gap-2 rounded-lg border border-white/20 bg-white/5 p-3 transition-colors hover:bg-white/10 sm:flex-row sm:items-start sm:justify-between"
+                                                    className="flex flex-col gap-2 rounded-xl border border-white/15 bg-white/[0.04] p-3 transition-colors hover:bg-white/[0.08] sm:flex-row sm:items-start sm:justify-between"
                                                 >
                                                     <div className="flex-1 min-w-0">
                                                         <p className="font-medium text-white">{task.title}</p>
@@ -297,7 +297,7 @@ export default function ProjectDetailPage() {
                                                                 handleTaskStatusChange(task.id, value as TaskStatus)
                                                             }
                                                         >
-                                                            <SelectTrigger className="w-full border-white/20 bg-white/5 text-xs text-white sm:w-32">
+                                                            <SelectTrigger className="w-full rounded-xl border-white/15 bg-white/5 text-xs text-white sm:w-32">
                                                                 <SelectValue />
                                                             </SelectTrigger>
                                                             <SelectContent className="border-white/20 bg-slate-900 text-white">
@@ -318,7 +318,7 @@ export default function ProjectDetailPage() {
                     </TabsContent>
 
                     <TabsContent value="tasks" className="space-y-3">
-                        <Card className="mb-4 rounded-lg border border-white/20 bg-white/10 p-4 backdrop-blur-xl">
+                        <Card className="mb-4 rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl">
                             <p className="text-sm text-slate-300">
                                 Showing all {totalTasks} tasks across {project.modules.length} modules
                             </p>
@@ -327,7 +327,7 @@ export default function ProjectDetailPage() {
                             module.tasks.map((task) => (
                                 <Card
                                     key={task.id}
-                                    className="rounded-lg border border-white/20 bg-white/10 p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.14]"
+                                    className="rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.10]"
                                 >
                                     <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                                         <div className="flex-1">
@@ -358,7 +358,7 @@ export default function ProjectDetailPage() {
                                                 handleTaskStatusChange(task.id, value as TaskStatus)
                                             }
                                         >
-                                            <SelectTrigger className="w-full border-white/20 bg-white/5 text-xs text-white sm:ml-4 sm:w-32">
+                                            <SelectTrigger className="w-full rounded-xl border-white/15 bg-white/5 text-xs text-white sm:ml-4 sm:w-32">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent className="border-white/20 bg-slate-900 text-white">
