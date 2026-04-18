@@ -55,7 +55,7 @@ export default function LoginPage() {
                             Build, ship, and scale your AI workflows faster.
                         </h1>
                         <p className="text-lg leading-relaxed text-white/50">
-                            Access your control center to manage projects, collaborate with your team, and automate your product operations with confidence.
+                            Access your control center to manage projects and automate your product operations with confidence.
                         </p>
 
                         {/* Feature highlights */}
@@ -64,14 +64,7 @@ export default function LoginPage() {
                                 <Sparkles className="h-4 w-4 text-amber-400/70" />
                                 <span className="text-sm">AI-powered project management</span>
                             </div>
-                            <div className="flex items-center gap-3 text-white/40">
-                                <Shield className="h-4 w-4 text-amber-400/70" />
-                                <span className="text-sm">Enterprise-grade security</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-white/40">
-                                <Zap className="h-4 w-4 text-amber-400/70" />
-                                <span className="text-sm">Real-time collaboration tools</span>
-                            </div>
+
                         </div>
                     </div>
 

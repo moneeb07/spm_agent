@@ -1,0 +1,23 @@
+* [33mc2578a1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mglass-ui-try[m[33m, [m[1;31morigin/glass-ui-try[m[33m)[m glass ui applied on all pages except auth
+* [33m6d500c3[m mimic glass ui componenets and minor details
+[31m|[m * [33m51c167e[m[33m ([m[1;31morigin/branch-old-blinking[m[33m, [m[1;32mbranch-old-blinking[m[33m)[m git blinking ui blue check point
+[31m|[m[31m/[m  
+[31m|[m * [33m9d07d6b[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m blinking removed and bit changed
+[31m|[m[31m/[m  
+* [33mbd230d4[m[33m ([m[1;32mpointer-ui-try[m[33m)[m mobile responsiveness added
+* [33md00eb12[m vercel.json added in root and NEXT_PUBLIC_API_URL=empty on vercel env var to make fake server
+* [33m62a31fc[m pacage added for vercel_2
+* [33mb70610a[m pacage added for vercel
+* [33mb2232e8[m commit after setting aws backend and bef frontend deploying
+* [33m1a85a83[m reset password functionality added
+* [33m07084cf[m streaming added
+* [33mde25d60[m maxOutputTokens: 20000 line changed
+* [33mc91fa2d[m separate section fo rcreate projet added
+* [33m4c4a05c[m ui improved with sahdcn
+* [33ma0d873d[m date issue fixed
+* [33mfded0aa[m project flow chart added
+* [33m02582e4[m frontend ui added-except project page(with flowchart)
+* [33m179119b[m ai added with frontend structure only
+* [33m5aa7d35[m auth done with new repo style and frotend is still pending
+* [33mcb5acc2[m auth done with new repo style
+* [33m3a4b2d0[m Initial commit: Backend auth (FastAPI+Supabase) and Frontend structure ( Next.js)
